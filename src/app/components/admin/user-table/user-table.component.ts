@@ -1,0 +1,321 @@
+import { Component, OnInit } from '@angular/core';
+import { ApiCallService } from '../../../services/api-call.service';
+import { RouterLink } from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpEventType } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+
+@Component({
+  selector: 'app-user-table',
+  standalone: true,
+  imports: [RouterLink,FormsModule,ReactiveFormsModule,CommonModule],
+  templateUrl: './user-table.component.html',
+  styleUrl: './user-table.component.scss'
+})
+export class UserTableComponent implements OnInit {
+
+  // Add a property to track upload progress bar
+  showProgressBar: boolean = false;
+  progress: number = 0;
+
+  showToast: boolean = false;
+
+  //fetch user data with pagination
+  users: User[] = []; // Initialize users array here
+  currentPage: any;
+  totalPages: any;
+  totalItems:any;
+  pageSize: number = 4; //default page size
+
+
+  allUsersData: any[] = [];
+
+ //filter
+  sortBy: string = 'userId'; // Default sorting by userId
+  sortOrder: string = 'asc';
+
+  //search
+  searchQuery: string = ''; // Property to store the search query
+
+  allUserData: any;
+  userData: any;
+
+  totalUsers: number = 0; 
+
+  //response msg
+  responseMessage: string = '';
+  modelResponseMessage: string = '';
+
+  //update
+  updatedEmail: string = ''; 
+  updatedPhone: string = ''; 
+
+  //create fileds
+  name:any;
+  lastName:any;
+  email:any;
+  phone:any;
+  position:any;
+  password:any;
+  role:any;
+
+  constructor(private api: ApiCallService) {}
+
+  ngOnInit() { 
+    this.currentPage = 0;
+    this.showAllUserData();
+  }
+
+ 
+  show() {
+    this.showToast = true;
+    setTimeout(() => {
+      this.hideToast();
+    }, 3000); // Adjust the duration as needed
+  }
+
+  hideToast() {
+    this.showToast = false;
+  }
+
+  showAllUserData() {
+    this.api.getAllUser(this.currentPage, this.pageSize, this.sortBy, this.sortOrder)
+      .subscribe({
+        next: (data: any) => {
+          this.allUsersData=data.items;
+          this.currentPage = data.currentPage;
+          this.totalPages = data.totalPages;
+          this.totalItems = data.totalItems;
+          this.users = data.users || [];
+  
+          // Loop through each user and load their profile picture
+          this.users.forEach((user: any) => {
+            this.loadUserProfilePicture(user.userId); // Pass user.id instead of userId
+          });
+        },
+        error: (error: any) => {
+          console.error('Error fetching user data:', error);
+        }
+      });
+  }
+
+  loadUserProfilePicture(userId: number) {
+    this.api.getImageUrl(userId).subscribe(
+      (response: Blob) => {
+        this.api.convertBlobToImage(response).subscribe(
+          (imageUrl: string) => {
+            for(let a=0;a<this.users.length;a++){
+              if(this.users[a].userId==userId){
+                this.users[a].profilePicture=imageUrl
+              }
+            }
+            console.log(this.users);
+            
+          },
+          (error: any) => {
+            console.error('Error converting Blob to image:', error);
+          }
+        );
+      },
+      (error: any) => {
+        console.error('Error fetching user profile picture:', error);
+      }
+    );
+  }
+  
+  //pagination start
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.showAllUserData();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.showAllUserData();
+    }
+  }
+
+  getPageRange(): number[] {
+    const pages = [];
+    for (let i = 1; i < this.totalPages+1; i++) {
+      pages.push(i-1 );
+    }
+    return pages;
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page; // Subtract 1 to convert to 0-based index
+    this.showAllUserData();
+  }
+
+  //filter
+
+  //sort by fields
+  onSortByChange() {
+    this.currentPage = 0; // Reset currentPage to 0 when sorting option changes
+    this.showAllUserData();
+ }
+
+  //change page size
+  onPageSizeChange() {
+    this.currentPage = 0; // Reset currentPage to 0 when page size changes
+    this.showAllUserData();
+  }
+
+  //search
+  search(): void {
+    // Reset currentPage to 0 when performing a new search
+    this.currentPage = 0;
+    // Perform search only if searchQuery is not empty
+    if (this.searchQuery.trim() !== '') {
+      this.api.searchName(this.searchQuery).subscribe({
+        next: (data: any) => {
+          this.users = data; // Update users with the filtered data
+          this.currentPage = 0; // Reset currentPage when search results are displayed
+          // You may need to update other pagination-related properties here as well
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      });
+    } else {
+      // If searchQuery is empty, show all user data
+      this.showAllUserData();
+    }
+  }
+
+   createUser() {
+    const userData = {
+      name: this.name,
+      lastName:this.lastName,
+      email: this.email,
+      phone: this.phone,
+      position: this.position,
+      password: this.password,
+      role: this.role
+    };
+
+    this.api.createUser(userData).subscribe(
+      (response: any) => { 
+        this.showToast = response.message;
+        setTimeout(() => {
+          this.hideToast();
+        }, 3000);
+        console.log('Project Created successfully');
+        this.showAllUserData()
+        
+      },
+      (error: any) => {
+        this.showToast =  error.message;
+        console.log('Error Creating Project', error);
+        
+      }
+    );
+  }
+
+  
+
+  deleteUser(userId: number) {
+    this.api.deleteUser(userId).subscribe({
+      next: (response: any) => {
+        this.showToast = response.message;
+        setTimeout(() => {
+          this.hideToast();
+        }, 3000);
+        console.log('User deleted successfully');
+        this.showAllUserData()
+      },
+      error: (error: any) => {
+        this.showToast = error.message;
+        console.log('Error deleting user:', error);
+      }
+    });
+  }
+
+  updateUser(userId: number) {
+    // Create a userData object with updated email and phone
+    const userData = {
+      email: this.updatedEmail,
+      phone: this.updatedPhone,
+      // You can add other properties here if needed
+    };
+    this.api.updateUserByAdmin(userId, userData).subscribe({
+      next: (response: any) => {
+        if (response && response.message) {
+          this.modelResponseMessage = response.message;
+          this.showAllUserData()
+          // Optionally, you can fetch updated user data or refresh the user list
+        } else {
+          console.log('User updated successfully');
+        }
+      },
+      error: (error: any) => {
+        console.log('Error updating user:', error);
+      }
+    });
+  }
+
+  //download excel data
+  downloadExcel() {
+    this.api.downloadExcel().subscribe((response) => {
+      this.saveFile(response.body, 'usersExcelData.xlsx');
+      
+    });
+  }
+
+  private saveFile(data: any, filename: string) {
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  //upload excel file
+  // Modify the `onFileChange` method to upload the file with progress tracking
+  onFileChange(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.showProgressBar = true; // Show the progress bar when uploading starts
+      this.api.uploadExcelWithProgress(file).subscribe({
+        next: (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total); // Update progress
+          } else if (event.type === HttpEventType.Response) {
+            this.showProgressBar = false; // Hide the progress bar when upload completes
+            this.progress = 0; // Reset progress
+            this.showAllUserData(); // Refresh user data after upload
+          }
+        },
+        error: (error: any) => {
+          console.error('Error uploading file:', error);
+          this.showProgressBar = false; // Hide the progress bar on error
+          this.progress = 0; // Reset progress
+        }
+      });
+    }
+  }
+
+}
+
+interface User{
+  userId: number;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  position: string;
+  createdON: string;
+  password: string;
+  roles: string;
+  lastUpdate: string | null;
+  imageUrl:String;   
+  profilePicture: any;      
+}
