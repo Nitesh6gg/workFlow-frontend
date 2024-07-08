@@ -24,7 +24,7 @@ export class ProjectTableComponent {
   totalProject: number = 0; 
     
   allProjectData: any[] = []; // Ensure this is an array to store the projects
-  
+
 
   allDepartment:any;
   allManagerData:any;
@@ -32,13 +32,11 @@ export class ProjectTableComponent {
   selectedDepartmentId:number | undefined;
 
   project = {
-
     projectName: '',
     startDate: '',
     endDate: '',
     managerId: '',
     projectDescription: ''
-
   };
 
   constructor(private api: ApiCallService) {}
@@ -53,7 +51,7 @@ export class ProjectTableComponent {
   showAllProjectData() {
     this.api.getAllProject().subscribe({
       next: (data: any) => {
-        this.allProjectData = data.items; // Access the items array from the API response
+        this.allProjectData = data.content; 
         this.totalProject = data.totalItems;
         this.currentPage=data.currentPage;
         this.totalPages=data.totalPages;
@@ -64,7 +62,29 @@ export class ProjectTableComponent {
     });
   }
 
+  showAllProjectByStatus(projectStatus:String){
+    this.api.getAllProjectByStatus(projectStatus).subscribe({
+      next: (data: any) => {
+        this.allProjectData = data.content; 
+        this.totalProject = data.totalItems;
+        this.currentPage=data.currentPage;
+        this.totalPages=data.totalPages;
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    })
+  }
 
+  onInProgressClick(){
+    this.showAllProjectByStatus('Initiation');
+  }
+
+  onClosedClick(){
+    this.showAllProjectByStatus('Closed');
+  }
+
+  //project creating
   showAllDepartment() {
     this.api.getAllDepartment().subscribe({
       next: (data: any) => {
@@ -81,7 +101,6 @@ export class ProjectTableComponent {
     }
   }
 
-
   showAllManagerData(departmentId: number) {
     this.api.getAllManager(departmentId).subscribe({
       next: (data: any) => {
@@ -92,7 +111,6 @@ export class ProjectTableComponent {
       }
     });
   }
-
 
   createProject() {
     const payload = {

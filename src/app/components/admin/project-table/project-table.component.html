@@ -161,7 +161,7 @@
                 View all
             </button>
 
-            <button
+            <button (click)="onInProgressClick()"
                 class="flex items-center px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                 <!-- Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -174,7 +174,7 @@
             </button>
 
 
-            <button
+            <button (click)="onClosedClick()"
                 class="flex items-center px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                 <!-- Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -301,7 +301,7 @@
 
                                     <!-- Dropdown menu -->
                                     <div class="tooltip-container">
-                                        <span class="tooltip">{{item.managerEmail}}</span>
+                                        <span class="tooltip">{{item.managerId.email}}</span>
                                         <span class="text">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 95 114"
                                                 class="svgIcon">
@@ -310,7 +310,7 @@
                                                     d="M0 109.5C0 83.2665 21.2665 62 47.5 62V62C73.7335 62 95 83.2665 95 109.5V114H0V109.5Z">
                                                 </path>
                                             </svg>
-                                            {{item.managerName}} </span>
+                                            {{item.managerId.username}}</span>
                                     </div>
 
                                 </td>

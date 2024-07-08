@@ -84,10 +84,10 @@ export class UserTableComponent implements OnInit {
     this.api.getAllUser(this.currentPage, this.pageSize, this.sortBy, this.sortOrder)
       .subscribe({
         next: (data: any) => {
-          this.allUsersData=data.items;
+          this.allUsersData=data.content;
           this.currentPage = data.currentPage;
           this.totalPages = data.totalPages;
-          this.totalItems = data.totalItems;
+          this.totalItems = data.numberOfElements;
           this.users = data.users || [];
   
           // Loop through each user and load their profile picture

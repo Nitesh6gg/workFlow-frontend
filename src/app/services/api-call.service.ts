@@ -43,7 +43,7 @@ export class ApiCallService {
   }
 
   getAllUser(page: number, size: number, sortBy: string, sortOrder: string): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/user/all?page=${page}&size=${size}&sortBy=${sortBy}&sort=${sortOrder}`);
+    return this.httpClient.get(`${environment.apiurl}/api/user/list?page=${page}&size=${size}&sortBy=${sortBy}&sort=${sortOrder}`);
   }
 
   searchName(name: string): Observable<any> {
@@ -80,7 +80,11 @@ export class ApiCallService {
   }
 
   getAllProject(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/project/all?page=0&size=5&sortBy=projectId&sortOrder=Desc`);
+    return this.httpClient.get(`${environment.apiurl}/api/project/list?page=0&size=5&sortBy=projectId&sortOrder=Desc`);
+  }
+
+  getAllProjectByStatus(projectStatus:String): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/project/status?projectStatus=${projectStatus}&page=0&size=5&sortBy=projectId&sortOrder=Desc`);
   }
 
   createProject(data:any): Observable<any> {
