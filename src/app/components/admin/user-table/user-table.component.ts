@@ -40,6 +40,8 @@ export class UserTableComponent implements OnInit {
   searchQuery: string = ''; // Property to store the search query
 
   allUserData: any;
+  allDepartment:any;
+  allPosition:any;
   userData: any;
 
   totalUsers: number = 0; 
@@ -53,10 +55,12 @@ export class UserTableComponent implements OnInit {
   updatedPhone: string = ''; 
 
   //create fileds
-  name:any;
+  username:any;
+  firstName:any;
   lastName:any;
   email:any;
   phone:any;
+  department:any;
   position:any;
   password:any;
   role:any;
@@ -66,6 +70,32 @@ export class UserTableComponent implements OnInit {
   ngOnInit() { 
     this.currentPage = 0;
     this.showAllUserData();
+    this.showAllDepartment();
+    this.showAllPosition();
+  }
+
+  showAllDepartment(){
+    this.api.getAllDepartment().subscribe({
+      next: (data: any) => {
+        this.allDepartment=data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching user data:', error);
+      }
+    })
+  }
+
+
+
+  showAllPosition(){
+    this.api.getAllPosition().subscribe({
+      next: (data: any) => {
+        this.allPosition=data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching user data:', error);
+      }
+    })
   }
 
  
@@ -191,10 +221,12 @@ export class UserTableComponent implements OnInit {
 
    createUser() {
     const userData = {
-      name: this.name,
+      username:this.username,
+      firstName: this.firstName,
       lastName:this.lastName,
       email: this.email,
       phone: this.phone,
+      department:this.department,
       position: this.position,
       password: this.password,
       role: this.role
@@ -217,6 +249,8 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
+
+  
 
   
 
@@ -307,11 +341,13 @@ export class UserTableComponent implements OnInit {
 
 interface User{
   userId: number;
-  name: string;
+  username: string;
+  firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  position: string;
+  department:number;
+  position: number;
   createdON: string;
   password: string;
   roles: string;

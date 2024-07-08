@@ -31,7 +31,15 @@ export class ApiCallService {
   //admin user sevice
 
   createUser(data:any): Observable<any> {
-    return this.httpClient.post(`${environment.apiurl}/api/admin/create`,data );
+    return this.httpClient.post(`${environment.apiurl}/api/user/create`,data );
+  }
+
+  getAllDepartments(): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/department/dropdown`);
+  }
+
+  getAllPosition(): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/position/dropdown`);
   }
 
   deleteUser(userId: number): Observable<any> {
