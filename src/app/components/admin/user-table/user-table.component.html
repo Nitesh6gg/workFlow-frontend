@@ -583,14 +583,14 @@
     <!-- speed-dial -->
     <div data-dial-init class="fixed end-6 bottom-6 group">
         <div id="speed-dial-menu-bottom-right" class="flex flex-col items-center hidden mb-4 space-y-2">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
+            <button type="button" (click)="clickOnUserAddSpeedDial()" data-bs-toggle="modal" data-bs-target="#addUserModal"
                 data-tooltip-target="tooltip-share" data-tooltip-placement="top"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                <span class="sr-only">Add User</span>
+                <span class="sr-only">Add</span>
             </button>
             <div id="tooltip-share" role="tooltip"
                 class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -690,10 +690,10 @@
                 <div class="flex items-center mr-4">
                     <div class="btn-group" role="group"
                         aria-label="Basic radio toggle button group">
-                        <input type="radio" [(ngModel)]="role" [value]="'ROLE_USER'"
+                        <input type="radio" [(ngModel)]="role" [value]="'3'"
                             class="btn-check" id="btnradio1" autocomplete="off">
                         <label class="btn btn-outline-primary" for="btnradio1">USER</label>
-                        <input type="radio" [(ngModel)]="role" [value]="'ROLE_ADMIN'"
+                        <input type="radio" [(ngModel)]="role" [value]="'2'"
                             class="btn-check" id="btnradio2" autocomplete="off">
                         <label class="btn btn-outline-primary" for="btnradio2">ADMIN</label>
                     </div>
@@ -765,6 +765,7 @@
 
                         <div class="col-span-2 sm:col-span-1">
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            
                             <input type="password" name="password" [(ngModel)]="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type password" required>
@@ -781,6 +782,11 @@
                 <button type="button" (click)="createUser()"
                     class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     Create
+                </button>
+                
+                <button type="button" (click)="reset()"
+                    class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Reset
                 </button>
             </div>
         </div>

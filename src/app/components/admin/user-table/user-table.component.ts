@@ -70,6 +70,10 @@ export class UserTableComponent implements OnInit {
   ngOnInit() { 
     this.currentPage = 0;
     this.showAllUserData();
+    
+  }
+
+  clickOnUserAddSpeedDial(){
     this.showAllDepartment();
     this.showAllPosition();
   }
@@ -84,8 +88,6 @@ export class UserTableComponent implements OnInit {
       }
     })
   }
-
-
 
   showAllPosition(){
     this.api.getAllPosition().subscribe({
@@ -219,6 +221,9 @@ export class UserTableComponent implements OnInit {
     }
   }
 
+  reset(){
+    this.userData.username=''
+  }
    createUser() {
     const userData = {
       username:this.username,
@@ -239,6 +244,7 @@ export class UserTableComponent implements OnInit {
           this.hideToast();
         }, 3000);
         console.log('Project Created successfully');
+        this.reset();
         this.showAllUserData()
         
       },
