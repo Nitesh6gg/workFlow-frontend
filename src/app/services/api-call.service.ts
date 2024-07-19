@@ -106,7 +106,7 @@ export class ApiCallService {
   //admin task service
 
   getAllProjects(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/admin/all-projects`);
+    return this.httpClient.get(`${environment.apiurl}/api/project/list-drop`);
   }
 
   getAllTeamLeader(): Observable<any> {
