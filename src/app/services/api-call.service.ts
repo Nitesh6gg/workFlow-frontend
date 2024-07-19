@@ -110,7 +110,7 @@ export class ApiCallService {
   }
 
   getAllTeamLeader(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/admin/all-teamLeader`);
+    return this.httpClient.get(`${environment.apiurl}/api/task/tl-drop`);
   }
 
   getAllTask(): Observable<any> {
