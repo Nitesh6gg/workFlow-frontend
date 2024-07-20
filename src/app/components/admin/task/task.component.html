@@ -174,10 +174,10 @@
                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                   <div>
                     <h2 class="font-medium text-gray-800 dark:text-white">
-                      {{ item.projectId.name }}
+                      {{ item.projectName}}
                     </h2>
                     <p class="text-xs font-normal text-gray-600 dark:text-gray-400">
-                      {{ item.projectId.endDate }}
+                      {{ item.dueDate }}
                     </p>
                   </div>
                 </td>
@@ -221,7 +221,7 @@
                     </svg>
 
                     <h2 class="font-medium text-gray-800 dark:text-white">
-                      {{ item.assignedUser.name }}
+                      {{ item.username}}
                     </h2>
                   </div>
                 </td>
@@ -494,7 +494,7 @@
               <div class="col-span-2 sm:col-span-1">
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team
                   Leader</label>
-                <select id="category" [(ngModel)]="assignedUser"
+                <select id="category" [(ngModel)]="assignedUserId"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                   <option selected="" disabled selected>
                     Select Team Leader

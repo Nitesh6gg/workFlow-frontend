@@ -30,7 +30,7 @@ export class TaskComponent {
   description: any;
   status: any;
   priority: any;
-  assignedUser: any;
+  assignedUserId=0;
   startDate: any;
   dueDate: any;
   
@@ -58,7 +58,7 @@ export class TaskComponent {
     this.api.getAllTask().subscribe({
       next: (data: any) => {
         console.log(data);
-        this.allTaskData = data;
+        this.allTaskData = data.content;
         //count total
         this.totalTask = this.allTaskData.length;
       },
@@ -122,16 +122,17 @@ export class TaskComponent {
   }
 
   createTask() {
-    const projectData = {
+    let projectData = {
       projectId: this.projectId,
       description: this.description,
       status: this.status,
       priority: this.priority,
-      assignedUser: this.assignedUser,
+      assignedUserId: this.assignedUserId,
       startDate: this.startDate,
       dueDate: this.dueDate
     };
 
+    projectData.assignedUserId=Number(this.assignedUserId)
     this.api.createTask(projectData).subscribe(
       (response: any) => { 
         this.showToast = response.message;
@@ -152,7 +153,7 @@ export class TaskComponent {
 
   isValid(): boolean {
     // Check if any of the required fields are empty
-    return  this.startDate && this.dueDate && this.assignedUser && this.description && this.status && this.projectId && this.priority;
+    return  this.startDate && this.dueDate && this.assignedUserId && this.description && this.status && this.projectId && this.priority;
   }
 
   deleteTask(taskId: number) {

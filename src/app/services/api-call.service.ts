@@ -114,10 +114,10 @@ export class ApiCallService {
   }
 
   getAllTask(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/admin/tasks/all`);
+    return this.httpClient.get(`${environment.apiurl}/api/task/list`);
   }
   createTask(data:any):Observable<any>{
-    return this.httpClient.post(`${environment.apiurl}/api/admin/tasks/new-task`,data );
+    return this.httpClient.post(`${environment.apiurl}/api/task/save`,data );
   }
 
   deleteTask(taskId: number): Observable<any> {
@@ -147,7 +147,7 @@ export class ApiCallService {
   }
 
   createTeam(data:any):Observable<any>{
-    return this.httpClient.post(`${environment.apiurl}/api/admin/team/create`,data );
+    return this.httpClient.post(`${environment.apiurl}/api/team/save`,data );
   }
 
   deleteTeam(teamId: number): Observable<any> {

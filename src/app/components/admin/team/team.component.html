@@ -511,11 +511,11 @@
 
                   @if (leaderType==='top') {
                   @for (item of topPriorityLeaders; track $index) {
-                  <option [value]="item.userId">{{ item.name }}</option>
+                  <option [value]="item.userId">{{ item.username }}</option>
                   }@empty {Top user not found}
                   }@else{
                   @for (item of lowPriorityLeaders; track $index) {
-                  <option [value]="item.userId">{{ item.name }}</option>
+                  <option [value]="item.userId">{{ item.username }}</option>
                   }@empty {low user not found} }
                 </select>
               </div>

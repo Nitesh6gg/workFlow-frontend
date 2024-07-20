@@ -27,6 +27,8 @@ export class TeamComponent {
   totalTeam: number = 0; 
   allTeamData: any;
 
+  allTeamLeaderData:any;
+
   name: any; 
   description: any;
   teamLeader: any;
@@ -44,6 +46,7 @@ export class TeamComponent {
   ngOnInit(): void {
     this.showAllTeam();
     this.loadTopPriorityLeaders(); // Load top priority leaders initially
+    this.showAllTeamLeaderData();
     
   }
 
@@ -105,10 +108,24 @@ export class TeamComponent {
     );
   }
 
+  private showAllTeamLeaderData() {
+    this.api.getAllTeamLeader().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.allTeamLeaderData= data;
+        this.topPriorityLeaders =data;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
   
 
   loadTopPriorityLeaders() {
     this.api.getAllTopPriorityUser().subscribe((leaders: any[]) => {
+
       this.topPriorityLeaders = leaders;
     });
   }
