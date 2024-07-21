@@ -61,16 +61,16 @@
                   alt="profile" />
                 <div>
                   <h3 class="text-base font-semibold text-gray-900">
-                    {{ item.teamLeader.name }}
+                    {{ item.teamName }}
                     <!-- <span class="center relative inline-block select-none whitespace-nowrap rounded-full bg-purple-500 py-1 px-2 align-baseline font-sans text-xs font-medium capitalize leading-none tracking-wide text-white">Top</span> -->
                   </h3>
 
 
 
                   <span class="block text-xs font-normal text-gray-500">{{
-                    item.teamLeader.position
+                    item.tl
                     }}</span>
-                  <span class="block text-xs font-normal text-gray-500">#{{ item.name }}</span>
+                  <span class="block text-xs font-normal text-gray-500">#{{ item.tl }}</span>
                 </div>
 
               </div>
@@ -81,9 +81,8 @@
 
             <div class="mt-6 pb-1 rounded-b-[--card-border-radius]">
               <p class="text-gray-700 dark:text-gray-300">
-                Hi, I'm {{ item.teamLeader.name }}
-                {{ item.teamLeader.lastName }} . I'm an {{ item.teamLeader.position }} at
-                Go2 Market .
+                {{ item.description }}
+                
               </p>
               <br />
               <span class="block text-xs font-normal text-gray-500">Creation Date : {{ item.creationDate }}</span>
@@ -258,13 +257,12 @@
                           </button>
               
                           <div class="col-span-2 sm:col-span-1">
-                            <label for="memberType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your
-                              Team Members</label>
-                            <select id="member" multiple
+                            <label for="memberType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your Team Members</label>
+                            <select id="member" multiple (change)="onMemberSelect($event)"
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                               <option selected disabled>Select Members</option>
-                              @for (item of topPriorityLeaders; track $index) {
-                              <option value="{{ item.userId }}">{{ item.name }} -- ( {{item.position}} )</option>
+                              @for (item of allUsersDropdownData; track $index) {
+                              <option value="{{ item.userId }}">{{ item.username }} -- [{{item.departmentName}} , {{item.positionName}} ]</option>
                               } @empty { No Members Found! }
                             </select>
                           </div>
@@ -284,7 +282,7 @@
                             <button (click)="addMembersToTeam()"
                               class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
                               data-bs-dismiss="modal">
-                              Yes, I'm sure
+                              Add
                             </button>
                           </div>
                         </div>

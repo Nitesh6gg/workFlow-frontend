@@ -113,6 +113,12 @@ export class ApiCallService {
     return this.httpClient.get(`${environment.apiurl}/api/task/tl-drop`);
   }
 
+  getAllUsersDropDown(): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/user/drop`);
+  }
+
+
+
   getAllTask(): Observable<any> {
     return this.httpClient.get(`${environment.apiurl}/api/task/list`);
   }
@@ -135,7 +141,7 @@ export class ApiCallService {
   //admin team service
 
   getAllTeam(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/admin/team/all`);
+    return this.httpClient.get(`${environment.apiurl}/api/team/list`);
   }
 
   getAllTopPriorityUser(): Observable<any> {
@@ -154,8 +160,10 @@ export class ApiCallService {
     return this.httpClient.delete(`${environment.apiurl}/api/admin/team/${teamId}`);
   }
 
-  addMembersToTeam(teamId: number, userIds: number[]): Observable<any> {
-    return this.httpClient.post(`${environment.apiurl}/api/admin/team/addMembers/${teamId}`, userIds);
+  addMembersToTeam(teamId: number, memberIds: number[]): Observable<any> {
+    const payload = { teamId, memberIds };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<any>(`${environment.apiurl}/api/team/addMembers`, payload, { headers });
   }
 
   //notifications

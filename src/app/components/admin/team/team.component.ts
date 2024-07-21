@@ -18,7 +18,7 @@ import { ApiCallService } from "../../../services/api-call.service";
 export class TeamComponent {
 
   // add members to team
-  teamId: number = 0; // Initialize with a default value
+  //teamId: number = 0; // Initialize with a default value
   userIdsInput: string = '';
 
  
@@ -28,6 +28,10 @@ export class TeamComponent {
   allTeamData: any;
 
   allTeamLeaderData:any;
+
+  allUsersDropdownData:any;
+  selectedMembers: number[] = [];
+  teamId: number=0;
 
   name: any; 
   description: any;
@@ -47,6 +51,7 @@ export class TeamComponent {
     this.showAllTeam();
     this.loadTopPriorityLeaders(); // Load top priority leaders initially
     this.showAllTeamLeaderData();
+    this.showAllUsersDropdownData();
     
   }
 
@@ -66,7 +71,7 @@ export class TeamComponent {
     this.api.getAllTeam().subscribe({
       next: (data: any) => {
         console.log(data);
-        this.allTeamData = data;
+        this.allTeamData = data.content;
         //count total
         this.totalTeam = this.allTeamData.length;
       },
@@ -121,6 +126,19 @@ export class TeamComponent {
     });
   }
 
+  private showAllUsersDropdownData() {
+    this.api.getAllUsersDropDown().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.allUsersDropdownData=data;
+        
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
   
 
   loadTopPriorityLeaders() {
@@ -166,19 +184,40 @@ export class TeamComponent {
     this.teamId = teamId;
   }
 
+  // addMembersToTeam(): void {
+  //   const userIds: number[] = this.userIdsInput.split(',').map(id => +id.trim());
+  //   this.api.addMembersToTeam(this.teamId, userIds).subscribe({
+  //     next: (response: any) => {
+  //       this.showToast = response.message;
+  //       console.log('Members added successfully:', response);
+  //       this.showAllTeam(); // Assuming this method exists to refresh the list of teams
+  //     },
+  //     error: (error: any) => {
+  //       this.showToast = error.message;
+  //       console.error('Error adding members:', error);
+  //     }
+  //   });
+  // }
+
+   onMemberSelect(event: any): void {
+    this.selectedMembers = Array.from(event.target.selectedOptions, (option: any) => +option.value);
+  }
+
   addMembersToTeam(): void {
-    const userIds: number[] = this.userIdsInput.split(',').map(id => +id.trim());
-    this.api.addMembersToTeam(this.teamId, userIds).subscribe({
-      next: (response: any) => {
-        this.showToast = response.message;
-        console.log('Members added successfully:', response);
-        this.showAllTeam(); // Assuming this method exists to refresh the list of teams
-      },
-      error: (error: any) => {
-        this.showToast = error.message;
-        console.error('Error adding members:', error);
-      }
-    });
+    if (this.selectedMembers.length > 0) {
+      this.api.addMembersToTeam(this.teamId, this.selectedMembers).subscribe(
+        response => {
+          console.log('Members added successfully:', response);
+          // Handle success response
+        },
+        error => {
+          console.error('Error adding members:', error);
+          // Handle error response
+        }
+      );
+    } else {
+      console.warn('No members selected.');
+    }
   }
   
   
