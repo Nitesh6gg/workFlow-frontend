@@ -9,9 +9,7 @@ import { Observable, catchError } from 'rxjs';
 export class ApiCallService {
 
   constructor(private httpClient:HttpClient) { }
-
-
-  //public
+  
   login(username: string, password: string) {
     return this.httpClient.post(`${environment.apiurl}/api/auth/login`, { username, password });
   }
@@ -142,6 +140,10 @@ export class ApiCallService {
 
   getAllTeam(): Observable<any> {
     return this.httpClient.get(`${environment.apiurl}/api/team/list`);
+  }
+
+  getAllTeamMembers(teamId:number): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/teamMember/find?teamId=${teamId}`);
   }
 
   getAllTopPriorityUser(): Observable<any> {

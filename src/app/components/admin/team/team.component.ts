@@ -33,6 +33,8 @@ export class TeamComponent {
   selectedMembers: number[] = [];
   teamId: number=0;
 
+  teamMembers: any;
+
   name: any; 
   description: any;
   teamLeader: any;
@@ -53,6 +55,11 @@ export class TeamComponent {
     this.showAllTeamLeaderData();
     this.showAllUsersDropdownData();
     
+  }
+
+  setTeamId(teamId: number): void {
+    this.teamId = teamId;
+    this.showAllTeamMembers(teamId);
   }
 
   show() {
@@ -80,6 +87,21 @@ export class TeamComponent {
       }
     });
   }
+
+  private showAllTeamMembers(teamId:number) {
+    this.api.getAllTeamMembers(this.teamId).subscribe({
+      next: (data: any) => {
+        this.teamMembers = data;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
+  
+
+ 
 
   
   isValid(): boolean {
@@ -180,10 +202,7 @@ export class TeamComponent {
     });
   }
 
-  setTeamId(teamId: number): void {
-    this.teamId = teamId;
-  }
-
+  
   // addMembersToTeam(): void {
   //   const userIds: number[] = this.userIdsInput.split(',').map(id => +id.trim());
   //   this.api.addMembersToTeam(this.teamId, userIds).subscribe({
