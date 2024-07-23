@@ -45,6 +45,8 @@ export class TeamComponent {
   // Arrays to store top and low priority leaders
   topPriorityLeaders: any[] = [];
   lowPriorityLeaders: any[] = [];
+
+  modalId:String | undefined;
  
   
   constructor(private api: ApiCallService,) {}
@@ -73,6 +75,22 @@ export class TeamComponent {
     this.showToast = false;
   }
 
+
+  openModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  closeModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  
   
   private showAllTeam() {
     this.api.getAllTeam().subscribe({
