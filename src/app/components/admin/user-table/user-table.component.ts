@@ -27,7 +27,7 @@ export class UserTableComponent implements OnInit {
   currentPage: any;
   totalPages: any;
   totalItems:any;
-  pageSize: number = 4; //default page size
+  pageSize: number = 10; //default page size
 
 
   allUsersData: any[] = [];

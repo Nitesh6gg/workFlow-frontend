@@ -95,13 +95,10 @@ export class TeamComponent {
   private showAllTeam() {
     this.api.getAllTeam().subscribe({
       next: (data: any) => {
-        console.log(data);
         this.allTeamData = data.content;
-        //count total
         this.totalTeam = this.allTeamData.length;
       },
       error: (error: any) => {
-        console.log(error);
       }
     });
   }
