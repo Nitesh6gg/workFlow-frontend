@@ -7,7 +7,7 @@ import { Observable, catchError } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiCallService {
-
+  
   constructor(private httpClient:HttpClient) { }
   
   login(username: string, password: string) {
@@ -141,6 +141,11 @@ export class ApiCallService {
   getAllTeam(): Observable<any> {
     return this.httpClient.get(`${environment.apiurl}/api/team/list`);
   }
+
+  getAllAssignTeam() {
+    return this.httpClient.get(`${environment.apiurl}/api/team/assign`);
+  }
+
 
   getAllTeamMembers(teamId:number): Observable<any> {
     return this.httpClient.get(`${environment.apiurl}/api/teamMember/find?teamId=${teamId}`);

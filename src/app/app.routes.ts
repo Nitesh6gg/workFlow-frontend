@@ -12,13 +12,13 @@ import { MessageComponent } from './components/admin/message/message.component';
 import { TaskComponent } from './components/admin/task/task.component';
 import { TeamComponent } from './components/admin/team/team.component';
 import { AuthGuardService } from './services/authGuard/auth-guard.service';
+import { MiddlePageComponent } from './components/user-dashboard/middle-page/middle-page.component';
 
 export const routes: Routes = [
 
- // User routing   
+ // public routing   
  { path: '', redirectTo: '/home', pathMatch: 'full' }, 
  { path: "home", component: HomeComponent, title: "Home | Management" },
- { path: "dashboard", component: UserDashboardComponent, title: "Dashboard | Management",canActivate: [AuthGuardService] },
  { path: "login", component: LoginComponent, title: "Login | Management" },
  { path: "signup", component: SingupComponent, title: "Signup | Management" },
  { path: "forget", component: ForgetComponent, title: "Forget | Management" },
@@ -32,6 +32,15 @@ export const routes: Routes = [
    { path: 'message', component: MessageComponent, data: { title: 'Message | Management' } },
    { path: 'task', component: TaskComponent, data: { title: 'Task | Management' } },
    { path: 'team', component: TeamComponent, data: { title: 'Team | Management' } }
+ ]},
+
+ // user routing
+ { path: 'user', redirectTo: 'user/dashboard', pathMatch: 'full' },
+ { path: 'dashboard',  component: UserDashboardComponent,canActivate: [AuthGuardService], children: [
+   { path: 'home', component: MiddlePageComponent, data: { title: 'Home | Management' } },
+   { path: 'team', component: TeamComponent, data: { title: 'Team | Management' } }
  ]}
 
+
+ 
 ];

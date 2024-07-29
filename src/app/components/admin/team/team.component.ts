@@ -114,11 +114,11 @@ export class TeamComponent {
     });
   }
 
-  
+  //active deactive button
+  toggleStatus(member: any) {
+    member.isActive = !member.isActive;
+  }
 
- 
-
-  
   isValid(): boolean {
     // Check if any of the required fields are empty
     return  this.name && this.description && this.teamLeader;

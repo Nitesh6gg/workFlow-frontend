@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
+import { MiddlePageComponent } from "./middle-page/middle-page.component";
+import { RightPanelComponent } from "./right-panel/right-panel.component";
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,RouterLink,CommonModule,ToastModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CommonModule, ToastModule, MiddlePageComponent, RightPanelComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
@@ -27,23 +29,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
   username:any;
   userEmail:any;
 
-  teamCard=[{
-    color:'red',
-    name:'asd'
-  },{
-    color:'blue',
-    name:'asd'
-    
-  },{
-    color:'green',
-    name:'asd'
-    
-  },{
-    color:'yellow',
-    name:'asd'
-    
-  }] ;
-
+  allAssignteamData:any;
 
   constructor(private api: ApiCallService,private router: Router,private cdr: ChangeDetectorRef, private notificationService: NotificationService) {}
 
@@ -57,14 +43,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
  
   ngOnInit(): void {
 
+    this.showAllTeams();
+
     const username=localStorage.getItem('username');
     this.username=username;
   
     const userEmail=localStorage.getItem('email');
     this.userEmail=userEmail;
-
-
-
 
     this.sseSubscription = this.api.getUserNotifications().subscribe({
       next: (notification: string) => {
@@ -83,6 +68,17 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
     if (this.sseSubscription) {
       this.sseSubscription.unsubscribe();
     }
+  }
+
+  private showAllTeams() {
+    this.api.getAllAssignTeam().subscribe({
+      next: (data: any) => {
+        this.allAssignteamData = data.content;
+       
+      },
+      error: (error: any) => {
+      }
+    });
   }
 
 }
