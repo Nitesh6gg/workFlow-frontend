@@ -7,12 +7,12 @@ import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
 import { MiddlePageComponent } from "./middle-page/middle-page.component";
-import { RightPanelComponent } from "./right-panel/right-panel.component";
+
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, CommonModule, ToastModule, MiddlePageComponent, RightPanelComponent],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CommonModule, ToastModule, MiddlePageComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
@@ -30,6 +30,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
   userEmail:any;
 
   allAssignteamData:any;
+  teamMembers: any;
+   teamId: number=0;
 
   constructor(private api: ApiCallService,private router: Router,private cdr: ChangeDetectorRef, private notificationService: NotificationService) {}
 
@@ -70,13 +72,44 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
     }
   }
 
+  setTeamId(teamId: number): void {
+    this.teamId = teamId;
+    this.showAllTeamMembers(teamId);
+  }
+
+  openModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  closeModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+
+
   private showAllTeams() {
     this.api.getAllAssignTeam().subscribe({
       next: (data: any) => {
         this.allAssignteamData = data.content;
-       
       },
       error: (error: any) => {
+      }
+    });
+  }
+
+  private showAllTeamMembers(teamId:number) {
+    this.api.getAllTeamMembers(this.teamId).subscribe({
+      next: (data: any) => {
+        this.teamMembers = data;
+      },
+      error: (error: any) => {
+        console.log(error);
       }
     });
   }
