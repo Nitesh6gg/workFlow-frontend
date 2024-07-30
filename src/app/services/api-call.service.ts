@@ -175,20 +175,13 @@ export class ApiCallService {
 
   //notifications
 
-  // broadcastNotification(notification: Notification): Observable<void> {
-  //   return this.httpClient.post<void>(`${environment.apiurl}/api/admin/notifications/broadcast`, notification);
-  // }
-
-  // sendPrivateNotification(userName: string, notification: Notification): Observable<void> {
-  //   return this.httpClient.post<void>(`${environment.apiurl}/api/admin/notifications/private/${userName}`, notification);
-  // }
-
+  
 
    //sse notifications
    // Connect to SSE endpoint for receiving notifications
   getUserNotifications(): Observable<string> {
     return new Observable<string>(observer => {
-      const eventSource = new EventSource(`${environment.apiurl}/api/user/get-notifications`);
+      const eventSource = new EventSource(`${environment.apiurl}/api/sse/notification/get-notifications`);
 
       eventSource.onmessage = event => {
         observer.next(event.data);
@@ -206,7 +199,7 @@ export class ApiCallService {
   }
 
   sendNotification(notification: string): Observable<any> {
-    return this.httpClient.post(`${environment.apiurl}/api/admin/send-notification`, notification);
+    return this.httpClient.post(`${environment.apiurl}/api/sse/notification/send-notification`, notification);
   }
 
   //image
