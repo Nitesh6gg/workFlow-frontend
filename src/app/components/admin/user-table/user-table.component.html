@@ -311,11 +311,11 @@
                                     </button>
                                 </th>
 
-                                
 
-                                    <th scope="col"
+
+                                <th scope="col"
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Department</th>    
+                                    Department</th>
 
                                 <th scope="col"
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -342,7 +342,7 @@
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     Authorization</th>
 
-                                    <th scope="col"
+                                <th scope="col"
                                     class="px-8 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     Disable/Enable</th>
 
@@ -384,7 +384,8 @@
                                             </ng-template>
 
                                             <div>
-                                                <h2 class="font-medium text-gray-800 dark:text-white ">{{item.firstName}}
+                                                <h2 class="font-medium text-gray-800 dark:text-white ">
+                                                    {{item.firstName}}
                                                     {{item.lastName}}</h2>
                                                 <p class="text-sm font-normal text-gray-600 dark:text-gray-400">
                                                     {{item.email}}</p>
@@ -392,7 +393,7 @@
                                         </div>
                                     </div>
                                 </td>
-                               
+
                                 <td class="px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
                                     {{item.departmentName}}</td>
                                 <td class="px-4 py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
@@ -583,8 +584,8 @@
     <!-- speed-dial -->
     <div data-dial-init class="fixed end-6 bottom-6 group">
         <div id="speed-dial-menu-bottom-right" class="flex flex-col items-center hidden mb-4 space-y-2">
-            <button type="button" (click)="clickOnUserAddSpeedDial()" data-bs-toggle="modal" data-bs-target="#addUserModal"
-                data-tooltip-target="tooltip-share" data-tooltip-placement="top"
+            <button type="button" (click)="clickOnUserAddSpeedDial()" data-bs-toggle="modal"
+                data-bs-target="#addUserModal" data-tooltip-target="tooltip-share" data-tooltip-placement="top"
                 class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" class="w-6 h-6">
@@ -616,7 +617,6 @@
                 <input type="file" #onFileInput style="display:none" (change)="onFileChange($event)">
                 <span class="sr-only">Upload</span>
             </button>
-
 
 
             <div id="tooltip-print" role="tooltip"
@@ -669,130 +669,153 @@
     </div>
     <!-- speed-dial end-->
 
-<!-- user Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                </svg>
-
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">New User</h3> 
+    <!-- user Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">New User</h3>
+                    </div>
+                    <div class="ml-auto"></div>
+                </div>
                 
                 
-                <div class="ml-36"></div>
+                
 
+                <div class="modal-body">
+                    <!-- alerts-->
+                    <div *ngIf="modelResponseMessage" class="alert alert-info alert-dismissible fade show text-center"
+                        role="alert">
+                        <strong>{{ modelResponseMessage }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <!-- alerts-->
+                    <div class="p-4 md:p-5">
+                        <div class="grid gap-4 mb-2 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <input type="text" name="username" [(ngModel)]="username" id="username"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Type username" maxlength="20" required>
+                            </div>
 
-                <!-- User and Admin buttons -->
-                <div class="flex items-center mr-4">
-                    <div class="btn-group" role="group"
-                        aria-label="Basic radio toggle button group">
-                        <input type="radio" [(ngModel)]="role" [value]="'3'"
-                            class="btn-check" id="btnradio1" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio1">USER</label>
-                        <input type="radio" [(ngModel)]="role" [value]="'2'"
-                            class="btn-check" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">ADMIN</label>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="firstName"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                                    Name</label>
+                                <input type="text" name="firstName" [(ngModel)]="firstName" id="firstName"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Type first name" maxlength="20" required>
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="lastName"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                                    Name</label>
+                                <input type="text" name="lastName" [(ngModel)]="lastName" id="lastName"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Type last name" maxlength="10" required>
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="email"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" name="email" [(ngModel)]="email" id="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="example@gmail.com"
+                                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="phone"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                <input type="text" name="phone" [(ngModel)]="phone" id="phone"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="XXX-XX-XXX-XX" pattern="[6-9][0-9]{9}" maxlength="10" required>
+                            </div>
+
+                            @if(userType!=="ROLE_SUPERADMIN"){
+
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="department"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
+                                    <select id="department" [(ngModel)]="department"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required>
+                                        <option selected disabled>Select department</option>
+                                        <option *ngFor="let item of allDepartment" [value]="item.id">{{ item.name }}
+                                        </option>
+                                    </select>
+                                </div>
+    
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="position"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                                    <select id="position" [(ngModel)]="position"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        required>
+                                        <option selected disabled>Select position</option>
+                                        <option *ngFor="let item of allPosition" [value]="item.positionId">{{ item.title }}
+                                        </option>
+                                    </select>
+                                </div>
+                            }
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="position"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">UserType</label>
+                                <select id="role" [(ngModel)]="role"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
+                                    <option selected disabled>Select UserType</option>
+                                    @if(userType=="ROLE_SUPERADMIN"){
+                                        <option  [value]="'2'">ADMIN</option>
+
+                                    }@else {
+                                        <option  [value]="'3'">USER</option>
+
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="password"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+
+                                <input type="password" name="password" [(ngModel)]="password" id="password"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Type password" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
 
-            <div class="modal-body">
-                <!-- alerts-->
-                <div *ngIf="modelResponseMessage" class="alert alert-info alert-dismissible fade show text-center" role="alert">
-                    <strong>{{ modelResponseMessage }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" (click)="createUser()"
+                        class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                        Create
+                    </button>
+
+                    <button type="button" (click)="reset()"
+                        class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                        Reset
+                    </button>
                 </div>
-                <!-- alerts-->
-                <div class="p-4 md:p-5">
-                    <div class="grid gap-4 mb-2 grid-cols-2">
-                        <div class="col-span-2">
-                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                            <input type="text" name="username" [(ngModel)]="username" id="username"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type username"  maxlength="20" required>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                            <input type="text" name="firstName" [(ngModel)]="firstName" id="firstName"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type first name"  maxlength="20" required>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                            <input type="text" name="lastName" [(ngModel)]="lastName" id="lastName"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type last name"  maxlength="10" required>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="email" [(ngModel)]="email" id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="example@gmail.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                            <input type="text" name="phone" [(ngModel)]="phone" id="phone"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="XXX-XX-XXX-XX" pattern="[6-9][0-9]{9}"  maxlength="10" required>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                            <select id="department" [(ngModel)]="department"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option selected disabled>Select department</option>
-                                <option *ngFor="let item of allDepartment" [value]="item.id">{{ item.name }}</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="position" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
-                            <select id="position" [(ngModel)]="position"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option selected disabled>Select position</option>
-                                <option *ngFor="let item of allPosition" [value]="item.positionId">{{ item.title }}</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            
-                            <input type="password" name="password" [(ngModel)]="password" id="password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type password" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" data-bs-dismiss="modal">
-                    Close
-                </button>
-
-                <button type="button" (click)="createUser()"
-                    class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                    Create
-                </button>
-                
-                <button type="button" (click)="reset()"
-                    class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                    Reset
-                </button>
             </div>
         </div>
     </div>
-</div>
-<!--user Modal end -->
+    <!--user Modal end -->
 
 
 

@@ -31,13 +31,13 @@ export class ProjectTableComponent {
 
   selectedDepartmentId:number | undefined;
 
-  project = {
-    projectName: '',
-    startDate: '',
-    endDate: '',
-    managerId: '',
-    projectDescription: ''
-  };
+  
+    projectName:string | undefined;
+    startDate: String | undefined;
+    endDate: String | undefined;
+    managerId: number | undefined;
+    projectDescription: string | undefined;
+  
 
   constructor(private api: ApiCallService) {}
 
@@ -114,11 +114,11 @@ export class ProjectTableComponent {
 
   createProject() {
     const payload = {
-      projectName: this.project.projectName,
-      startDate: this.project.startDate,
-      endDate: this.project.endDate,
-      managerId: this.project.managerId,
-      description: this.project.projectDescription
+      projectName: this.projectName,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      managerId: this.managerId,
+      description: this.projectDescription
     };
 
     this.api.createProject(payload).subscribe(
@@ -151,7 +151,7 @@ export class ProjectTableComponent {
 
   isValid(): boolean {
     // Check if any of the required fields are empty
-    return !!(this.project.projectName && this.project.startDate && this.project.endDate && this.project.managerId && this.project.projectDescription);
+    return !!(this.projectName && this.startDate && this.endDate && this.managerId && this.projectDescription);
   }
   
 

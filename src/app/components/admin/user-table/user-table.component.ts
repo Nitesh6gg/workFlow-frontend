@@ -16,6 +16,8 @@ import { Observable } from 'rxjs';
 })
 export class UserTableComponent implements OnInit {
 
+  userType:any;
+
   // Add a property to track upload progress bar
   showProgressBar: boolean = false;
   progress: number = 0;
@@ -68,6 +70,7 @@ export class UserTableComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
   ngOnInit() { 
+    this.userType=localStorage.getItem("userType");
     this.currentPage = 0;
     this.showAllUserData();
     
