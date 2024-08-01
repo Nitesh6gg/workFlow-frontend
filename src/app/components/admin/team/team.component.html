@@ -68,7 +68,7 @@
                   <h3 class="text-base font-semibold text-gray-900">
                     {{ item.teamName }}
                   </h3>
-                  <span class="block text-xs font-normal text-gray-500">{{ item.tl }}</span>
+                  <span class="block text-xs font-normal text-gray-500">Team Leader</span>
                   <span class="block text-xs font-normal text-gray-500">#{{ item.tl }}</span>
                 </div>
               </div>
@@ -79,7 +79,7 @@
             <div class="mt-6 pb-1 rounded-b-[--card-border-radius]">
               <p class="text-gray-700 dark:text-gray-300">{{ item.description }}</p>
               <br />
-              <span class="block text-xs font-normal text-gray-500">Creation Date: {{ item.creationDate }}</span>
+              <span class="block text-xs font-normal text-gray-500">Creation Date: {{ item.creationDate | date:'short'}}</span>
             </div>
             <div class="mt-6 flex items-center justify-between text-sm font-semibold text-gray-900">
               <div class="flex">
@@ -107,7 +107,7 @@
                 class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
                 Members</button>
 
-              <button (click)="openModal('addMemberModal')"
+              <button (click)="openModal('addMemberModal')" (click)="setTeamId(item.teamId)"
                 class="group flex items-center rounded-xl disabled:border *:select-none [&>*:not(.sr-only)]:relative *:disabled:opacity-20 disabled:text-gray-950 disabled:border-gray-200 disabled:bg-gray-100 dark:disabled:border-gray-800/50 disabled:dark:bg-gray-900 dark:*:disabled:!text-white text-gray-950 bg-gray-100 hover:bg-blue-500 active:bg-gray-100 dark:text-white dark:bg-gray-500/10 dark:hover:bg-gray-500/15 dark:active:bg-gray-500/10 size-8 justify-center">
                 <span class="sr-only">Add Members </span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -117,7 +117,7 @@
                 </svg>
               </button>
 
-              <button (click)="openModal('deleteTeamModal')"
+              <button (click)="openModal('deleteTeamModal')" (click)="setTeamId(item.teamId)"
                 class="group flex items-center rounded-xl disabled:border *:select-none [&>*:not(.sr-only)]:relative *:disabled:opacity-20 disabled:text-gray-950 disabled:border-gray-200 disabled:bg-gray-100 dark:disabled:border-gray-800/50 disabled:dark:bg-gray-900 dark:*:disabled:!text-white text-gray-950 bg-gray-100 hover:bg-red-600 active:bg-gray-100 dark:text-white dark:bg-gray-500/10 dark:hover:bg-gray-500/15 dark:active:bg-gray-500/10 size-8 justify-center">
                 <span class="sr-only">Delete</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

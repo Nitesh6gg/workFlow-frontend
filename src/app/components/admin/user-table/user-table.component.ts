@@ -248,7 +248,7 @@ export class UserTableComponent implements OnInit {
         }, 3000);
         console.log('Project Created successfully');
         this.reset();
-        this.showAllUserData()
+        this.showAllUserData();
         
       },
       (error: any) => {
