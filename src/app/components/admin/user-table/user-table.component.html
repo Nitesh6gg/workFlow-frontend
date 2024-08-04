@@ -286,7 +286,7 @@
                                     <div class="flex items-center gap-x-3">
                                         <input type="checkbox"
                                             class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700">
-                                        <span>Id</span>
+                                        
                                     </div>
                                 </th>
 
@@ -360,9 +360,7 @@
                                         <input type="checkbox"
                                             class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700">
 
-                                        <div>
-                                            <h2 class="font-medium text-gray-800 dark:text-white ">{{$index}} </h2>
-                                        </div>
+                                       
 
                                     </div>
                                 </td>
@@ -374,13 +372,13 @@
 
                                             <!-- condition on img -->
                                             <ng-container
-                                                *ngIf="!item.profilePicture || item.profilePicture.length === 0; else showProfilePicture">
+                                                *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
                                                 <img class="object-cover w-10 h-10 rounded-full"
                                                     src="assets/default.webp" alt="not found">
                                             </ng-container>
                                             <ng-template #showProfilePicture>
                                                 <img class="object-cover w-10 h-10 rounded-full"
-                                                    [src]="item.profilePicture" alt="img">
+                                                    [src]="item.imageUrl" alt="img">
                                             </ng-template>
 
                                             <div>
@@ -401,7 +399,7 @@
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                     {{item.phone}}</td>
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                    {{item.createdON}}</td>
+                                    {{item.createdON | date:'medium'}}</td>
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div class="flex items-center gap-x-2">
 

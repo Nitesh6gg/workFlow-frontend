@@ -29,6 +29,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
   username:any;
   userEmail:any;
 
+  profileDetails:any;
+
   allAssignteamData:any;
   teamMembers: any;
    teamId: number=0;
@@ -71,6 +73,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
       this.sseSubscription.unsubscribe();
     }
   }
+  
 
   setTeamId(teamId: number): void {
     this.teamId = teamId;
@@ -107,6 +110,21 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
     this.api.getAllTeamMembers(this.teamId).subscribe({
       next: (data: any) => {
         this.teamMembers = data;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
+  onClickProfile(){
+    this.showProfileDetails();
+  }
+
+  private showProfileDetails() {
+    this.api.getProfileDetails().subscribe({
+      next: (data: any) => {
+        this.profileDetails = data;
       },
       error: (error: any) => {
         console.log(error);

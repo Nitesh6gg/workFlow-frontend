@@ -28,6 +28,10 @@ export class ApiCallService {
   
   //admin user sevice
 
+  getProfileDetails(): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/user/profileDetails`);
+  }
+
   createUser(data:any): Observable<any> {
     return this.httpClient.post(`${environment.apiurl}/api/user/create`,data );
   }
