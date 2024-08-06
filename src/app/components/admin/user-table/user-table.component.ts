@@ -67,6 +67,10 @@ export class UserTableComponent implements OnInit {
   password:any;
   role:any;
 
+  //show img modal
+  isModalOpen = false;
+  modalImageUrl: string | null = null;
+
   constructor(private api: ApiCallService) {}
 
   ngOnInit() { 
@@ -74,6 +78,18 @@ export class UserTableComponent implements OnInit {
     this.currentPage = 0;
     this.showAllUserData();
     
+  }
+
+  openModal(imageUrl: string): void {
+    this.modalImageUrl = imageUrl;
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    setTimeout(() => {
+      this.modalImageUrl = null;
+    }, 300); // Match the duration of the transition
   }
 
   clickOnUserAddSpeedDial(){

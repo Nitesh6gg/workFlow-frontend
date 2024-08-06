@@ -286,7 +286,7 @@
                                     <div class="flex items-center gap-x-3">
                                         <input type="checkbox"
                                             class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700">
-                                        
+
                                     </div>
                                 </th>
 
@@ -360,7 +360,7 @@
                                         <input type="checkbox"
                                             class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700">
 
-                                       
+
 
                                     </div>
                                 </td>
@@ -370,13 +370,14 @@
 
                                         <div class="flex items-center gap-x-2">
 
-                                            <!-- condition on img -->
-                                            <ng-container
-                                                *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
-                                                <img class="w-10 h-10 rounded-full"src="assets/default.webp" alt="not found">
+                                            <!-- Image with click event to open modal -->
+                                            <ng-container *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
+                                                <img class="w-10 h-10 rounded-full cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+                                                    src="assets/default.webp" alt="not found" (click)="openModal('assets/default.webp')">
                                             </ng-container>
                                             <ng-template #showProfilePicture>
-                                                <img class="w-10 h-10 rounded-full"[src]="item.imageUrl" alt="img">
+                                                <img class="w-10 h-10 rounded-full cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+                                                    [src]="item.imageUrl" alt="img" (click)="openModal(item.imageUrl)">
                                             </ng-template>
 
                                             <div>
@@ -389,6 +390,26 @@
                                         </div>
                                     </div>
                                 </td>
+
+                                <!--prfile show  Modal -->
+                                <!-- <div class="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-50" *ngIf="isModalOpen">
+                                    <div class="relative w-60 h-60 rounded-full bg-white overflow-hidden transform scale-100 transition-transform duration-300 ease-in-out" [ngClass]="{'scale-0': !isModalOpen}">
+                                      <img [src]="modalImageUrl" class="w-full h-full object-cover" alt="Full Image">
+                                      <button class="absolute top-2 right-2 text-black text-2xl bg-black bg-opacity-60 rounded-full p-2 hover:bg-opacity-80" (click)="closeModal()">×</button>
+                                      <button class="absolute top-2 right-2 text-white text-2xl" (click)="closeModal()">×</button>
+                                    </div>
+                                  </div> -->
+
+                                  <div class="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-50" *ngIf="isModalOpen">
+                                    <div class="relative w-60 h-60 rounded-full bg-white overflow-hidden transform scale-100 transition-transform duration-300 ease-in-out" [ngClass]="{'scale-0': !isModalOpen}">
+                                      <img [src]="modalImageUrl"  class="w-full h-full object-cover" alt="Full Image">
+                                      
+                                    </div>
+                                    <div class="relative">
+                                        <button class="absolute top-2 right-2 text-black text-2xl" (click)="closeModal()">× close</button>
+
+                                    </div>
+                                  </div>
 
                                 <td class="px-4  py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
                                     {{item.departmentName}}</td>
@@ -671,16 +692,18 @@
             <div class="modal-content">
                 <div class="modal-header flex items-center justify-between">
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                         </svg>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">New User</h3>
                     </div>
                     <div class="ml-auto"></div>
                 </div>
-                
-                
-                
+
+
+
 
                 <div class="modal-body">
                     <!-- alerts-->
@@ -737,29 +760,29 @@
 
                             @if(userType!=="ROLE_SUPERADMIN"){
 
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="department"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                                    <select id="department" [(ngModel)]="department"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        required>
-                                        <option selected disabled>Select department</option>
-                                        <option *ngFor="let item of allDepartment" [value]="item.id">{{ item.name }}
-                                        </option>
-                                    </select>
-                                </div>
-    
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="position"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
-                                    <select id="position" [(ngModel)]="position"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        required>
-                                        <option selected disabled>Select position</option>
-                                        <option *ngFor="let item of allPosition" [value]="item.positionId">{{ item.title }}
-                                        </option>
-                                    </select>
-                                </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="department"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
+                                <select id="department" [(ngModel)]="department"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
+                                    <option selected disabled>Select department</option>
+                                    <option *ngFor="let item of allDepartment" [value]="item.id">{{ item.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="position"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                                <select id="position" [(ngModel)]="position"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
+                                    <option selected disabled>Select position</option>
+                                    <option *ngFor="let item of allPosition" [value]="item.positionId">{{ item.title }}
+                                    </option>
+                                </select>
+                            </div>
                             }
 
                             <div class="col-span-2 sm:col-span-1">
@@ -770,10 +793,10 @@
                                     required>
                                     <option selected disabled>Select UserType</option>
                                     @if(userType=="ROLE_SUPERADMIN"){
-                                        <option  [value]="'2'">ADMIN</option>
+                                    <option [value]="'2'">ADMIN</option>
 
                                     }@else {
-                                        <option  [value]="'3'">USER</option>
+                                    <option [value]="'3'">USER</option>
 
                                     }
                                 </select>
