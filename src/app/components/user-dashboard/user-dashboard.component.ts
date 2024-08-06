@@ -17,10 +17,13 @@ import { MiddlePageComponent } from "./middle-page/middle-page.component";
   styleUrl: './user-dashboard.component.scss'
 })
 export class UserDashboardComponent implements OnInit, OnDestroy  {
+
   @Input() dropdownToggle: string | undefined;
   @Input() ariaLabelledby: string | undefined;
 
-  
+  selectedFile: File | null = null;
+  imageUrl: string | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
 
   
   notifications: string[] = [];
@@ -73,7 +76,39 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
       this.sseSubscription.unsubscribe();
     }
   }
+
+  copyToClipboard(): void {
+    // Implement the logic to copy the profile link to clipboard
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    this.selectedFile = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   
+  
+
+  onSubmit(): void {
+    if (this.selectedFile) {
+      this.api.uploadProfileImage(this.selectedFile).subscribe(
+        (response: any) => {
+          this.imageUrl = response.imageUrl; // Assuming response contains the imageUrl
+        },
+        (error) => {
+          console.error('Error uploading image', error);
+        }
+      );
+    }
+  }
+
+ 
 
   setTeamId(teamId: number): void {
     this.teamId = teamId;
@@ -131,6 +166,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy  {
       }
     });
   }
+
+
 
 }
 

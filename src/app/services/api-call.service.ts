@@ -207,8 +207,13 @@ export class ApiCallService {
   }
 
   //image
- 
- 
+
+  uploadProfileImage(selectedFile:any){
+    const formData = new FormData();
+    formData.append('file', selectedFile, selectedFile.name);
+    return this.httpClient.post(`${environment.apiurl}/api/user/upload-profileImg`, formData);
+  }
+
   updateUserImage(userId: number, imageData: any): Observable<any> {
     return this.httpClient.put(`${environment.apiurl}/api/user/updateImg/${userId}`, imageData);
   }

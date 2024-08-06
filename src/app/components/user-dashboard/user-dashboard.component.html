@@ -125,7 +125,7 @@
           <!--prfile Modal toggle -->
 
           <li>
-            <a data-modal-target="crud-modal" data-modal-toggle="crud-modal" (click)="onClickProfile()"
+            <a data-modal-target="profile-modal" data-modal-toggle="profile-modal" (click)="onClickProfile()"
               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
           </li>
 
@@ -134,9 +134,6 @@
               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
           </li>
          
-
-          
-
         </ul>
         <div class="py-1">
           <a href="#" (click)="logout()"
@@ -263,284 +260,327 @@
 
 
   <div class="page-content">
-    
-  <app-middle-page></app-middle-page>
-
-
+  
+    <app-middle-page></app-middle-page>
 
 <!-- Profile Modal -->
-<div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="profile-modal" tabindex="-1" aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative p-4 w-full max-w-md max-h-full">
-      <!-- Modal content -->
-      <div class="relative bg-white rounded-3xl shadow dark:bg-gray-700">
-          <!-- Modal header -->
-          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t-3xl bg-gray-200 dark:bg-gray-800 dark:border-gray-600">
-              <div class="flex items-center">
-                  <img class="w-10 h-10 rounded-full" src={{profileDetails.imageUrl}} alt="Profile Picture">
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white ml-3">
-                      Edit Profile
-                  </h3>
-              </div>
-              <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="profile-modal">
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                  </svg>
-                  <span class="sr-only">Close modal</span>
-              </button>
-          </div>
-          
-          <!-- Modal body -->
-          <form class="p-4 md:p-5">
-              <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2 flex items-center">
-                      <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Name</label>
-                      <input type="text" name="firstName" id="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={{profileDetails.firstName}} required="" disabled>
-                      &nbsp;&nbsp;&nbsp;
-                      <input type="text" name="lastName" id="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={{profileDetails.lastName}} required="" disabled>
-                  </div>
-
-                  <div class="col-span-2 flex items-center">
-                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Email</label>
-                      <div class="relative w-full">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                            <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                            <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-                          </svg>
-                        </div>
-                        <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={{profileDetails.email}} disabled readonly>
-                      </div>
-                  </div>
-
-                  <div class="col-span-2 flex items-center">
-                      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Username</label>
-                      <div class="flex">
-                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
-                          </svg>
-                          &nbsp;
-                          workflow.in/
-                        </span>
-                        <input type="text" id="website-admin" class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={{profileDetails.username}} disabled>
-                      </div>
-                  </div>
-
-                  <div class="col-span-2 flex items-center">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Profile Photo</label>
-                    <div class="relative flex items-center">
-                        <img class="w-16 h-16 rounded-full" src="https://via.placeholder.com/150" alt="Profile Picture">
-                        <input type="file" id="profilePhotoInput" class="hidden">
-                        <button type="button"  onclick="document.getElementById('profilePhotoInput').click()" 
-                            class="ml-3 py-1 px-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            Click to Replace
-                        </button>
-                    </div>
-                </div>
-                
-                
-                
-              </div>
-              <!-- Modal footer -->
-              <div class="flex items-center justify-between pt-4 border-t border-gray-200 rounded-b dark:border-gray-600">
-                  <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" data-modal-toggle="profile-modal">Cancel</button>
-                  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save Changes</button>
-              </div>
-          </form>
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-3xl shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between p-2  md:p-5 border-b rounded-t-3xl bg-gray-200 dark:bg-gray-800 dark:border-gray-600">
+        <div class="flex items-center">
+          <img class=" ml-4 w-16 h-16 rounded-full" src={{profileDetails.imageUrl}} alt="img">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white ml-3">
+            Edit Profile
+          </h3>
+        </div>
+        <button type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-modal-toggle="profile-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
       </div>
+
+      <!-- Modal body -->
+      <form class="p-4 md:p-5" (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+        <div class="grid gap-4 mb-4 grid-cols-2">
+
+          <div class="flex justify-self-auto">
+            <button type="button" (click)="copyToClipboard()"
+              class="flex items-center px-2 py-1 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+              Copy Link
+            </button>
+          </div>
+
+          <div class="col-span-2 flex items-center">
+            <label for="firstName"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Name</label>
+            <input type="text" name="firstName" id="firstName"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              [placeholder]="profileDetails.firstName" required disabled>
+            &nbsp;&nbsp;&nbsp;
+            <input type="text" name="lastName" id="lastName"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              [placeholder]="profileDetails.lastName" required disabled>
+          </div>
+
+          <div class="col-span-2 flex items-center">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Email</label>
+            <div class="relative w-full">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                  <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                  <path
+                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                </svg>
+              </div>
+              <input type="text" id="email-address-icon"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                [placeholder]="profileDetails.email" disabled readonly>
+            </div>
+          </div>
+
+          <div class="col-span-2 flex items-center">
+            <label for="username"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Username</label>
+            <div class="flex">
+              <span
+                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+                </svg>
+                &nbsp;
+                workflow.in/
+              </span>
+              <input type="text" id="website-admin"
+                class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                [placeholder]="profileDetails.username" disabled>
+            </div>
+          </div>
+
+          <div class="col-span-2 flex items-center">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-2">Profile Photo</label>
+            <div class="relative flex items-center">
+              <img class="w-16 h-16 rounded-full"
+                [src]="previewUrl || profileDetails.imageUrl || 'https://via.placeholder.com/150'" alt="img">
+            </div>
+          </div>
+
+          <div class="file-upload">
+            <input type="file" (change)="onFileSelected($event)" />
+          </div>
+
+        </div>
+        <!-- Modal footer -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+            data-modal-toggle="profile-modal">Cancel</button>
+          <button type="submit"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Save
+            Changes</button>
+        </div>
+      </form>
+
+    </div>
   </div>
 </div>
 
 
 
 
-  
+
   </div>
 
+
   <div class="right-bar">
-    
-    
+  
     <div class="right-content">
-
       @for (item of allAssignteamData; track $index) {
-
-        <div class="bg-{{item.color}}-200 py-3 px-4 rounded-lg hover:shadow-lg relative mt-4">
-          <div class="description-task">
-              <div class="time text-sm opacity-40 mb-1">{{item.joinDate | date:'fullDate'}}</div>
-              <div class="task-name text-base font-semibold opacity-60">{{item.teamName}}</div>
-          </div>
-          
-          <div class="members flex">
-              <img class="w-12 h-12 rounded-full mr-2" src="https://images.unsplash.com/photo-1491349174775-aaafddd81942?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="member">
-              <img class="w-12 h-12 rounded-full mr-2" src="https://images.unsplash.com/photo-1476657680631-c07285ff2581?ixlib=rb-1.2.1&auto=format&fit=crop&w=2210&q=80" alt="member-2">
-              <img class="w-12 h-12 rounded-full mr-2" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="member-3">
-              <img class="w-12 h-12 rounded-full mr-2" src="https://images.unsplash.com/photo-1455504490126-80ed4d83b3b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80" alt="member-4">
-          </div>
-      
-          <div class="absolute top-2 right-2">
-
-
-            <div class="relative inline-block text-left">
-              <div>
-                  <button (click)="openModal('listMembersModal'); setTeamId(item.teamId)" class="inline-flex items-center p-2 text-sm font-medium text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-blue-500" type="button">
-                      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                          <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                      </svg>
-                  </button>
-
-
-                    <!-- List of Members Modal -->
-      <div id="listMembersModal"
-      class="fixed inset-0 hidden flex items-center justify-center p-4 bg-gray-100 bg-opacity-30">
-      <div class="modal-dialog mt-16 max-w-lg">
-        <div class="modal-content bg-white p-2 rounded-xl shadow-lg sm:p-5">
-          <div class="relative">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t dark:border-gray-600">
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                List of Members
-              </h3>
-              <button type="button" (click)="closeModal('listMembersModal')"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+      <div class="bg-{{item.color}}-200 py-3 px-4 rounded-lg hover:shadow-lg relative mt-4">
+        <div class="description-task">
+          <div class="time text-sm opacity-40 mb-1">{{item.joinDate | date:'fullDate'}}</div>
+          <div class="task-name text-base font-semibold opacity-60">{{item.teamName}}</div>
+        </div>
+  
+        <div class="members flex">
+          <img class="w-12 h-12 rounded-full mr-2"
+            src="https://images.unsplash.com/photo-1491349174775-aaafddd81942?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+            alt="member">
+          <img class="w-12 h-12 rounded-full mr-2"
+            src="https://images.unsplash.com/photo-1476657680631-c07285ff2581?ixlib=rb-1.2.1&auto=format&fit=crop&w=2210&q=80"
+            alt="member-2">
+          <img class="w-12 h-12 rounded-full mr-2"
+            src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+            alt="member-3">
+          <img class="w-12 h-12 rounded-full mr-2"
+            src="https://images.unsplash.com/photo-1455504490126-80ed4d83b3b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+            alt="member-4">
+        </div>
+  
+        <div class="absolute top-2 right-2">
+  
+  
+          <div class="relative inline-block text-left">
+            <div>
+              <button (click)="openModal('listMembersModal'); setTeamId(item.teamId)"
+                class="inline-flex items-center p-2 text-sm font-medium text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-blue-500"
+                type="button">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 16 3">
+                  <path
+                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
                 </svg>
-                <span class="sr-only">Close modal</span>
               </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-2 md:p-5">
-              <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Connect with one of our available wallet
-                providers or create a new one.</p>
-              <ul class="my-4 space-y-3 max-h-64 overflow-y-auto">
-                <li>
-
-                  @for (item of teamMembers; track $index) {
-                  <a
-                    class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                    <svg aria-hidden="true" class="h-4" viewBox="0 0 40 38" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M39.0728 0L21.9092 12.6999L25.1009 5.21543L39.0728 0Z" fill="#E17726" />
-                      <path d="M0.966797 0.0151367L14.9013 5.21656L17.932 12.7992L0.966797 0.0151367Z"
-                        fill="#E27625" />
-                      <path d="M32.1656 27.0093L39.7516 27.1537L37.1004 36.1603L27.8438 33.6116L32.1656 27.0093Z"
-                        fill="#E27625" />
-                      <path d="M7.83409 27.0093L12.1399 33.6116L2.89876 36.1604L0.263672 27.1537L7.83409 27.0093Z"
-                        fill="#E27625" />
-                      <path
-                        d="M17.5203 10.8677L17.8304 20.8807L8.55371 20.4587L11.1924 16.4778L11.2258 16.4394L17.5203 10.8677Z"
-                        fill="#E27625" />
-                      <path
-                        d="M22.3831 10.7559L28.7737 16.4397L28.8067 16.4778L31.4455 20.4586L22.1709 20.8806L22.3831 10.7559Z"
-                        fill="#E27625" />
-                      <path d="M12.4115 27.0381L17.4768 30.9848L11.5928 33.8257L12.4115 27.0381Z" fill="#E27625" />
-                      <path d="M27.5893 27.0376L28.391 33.8258L22.5234 30.9847L27.5893 27.0376Z" fill="#E27625" />
-                      <path d="M22.6523 30.6128L28.6066 33.4959L23.0679 36.1282L23.1255 34.3884L22.6523 30.6128Z"
-                        fill="#D5BFB2" />
-                      <path d="M17.3458 30.6143L16.8913 34.3601L16.9286 36.1263L11.377 33.4961L17.3458 30.6143Z"
-                        fill="#D5BFB2" />
-                      <path d="M15.6263 22.1875L17.1822 25.4575L11.8848 23.9057L15.6263 22.1875Z" fill="#233447" />
-                      <path d="M24.3739 22.1875L28.133 23.9053L22.8184 25.4567L24.3739 22.1875Z" fill="#233447" />
-                      <path d="M12.8169 27.0049L11.9606 34.0423L7.37109 27.1587L12.8169 27.0049Z" fill="#CC6228" />
-                      <path d="M27.1836 27.0049L32.6296 27.1587L28.0228 34.0425L27.1836 27.0049Z" fill="#CC6228" />
-                      <path
-                        d="M31.5799 20.0605L27.6165 24.0998L24.5608 22.7034L23.0978 25.779L22.1387 20.4901L31.5799 20.0605Z"
-                        fill="#CC6228" />
-                      <path
-                        d="M8.41797 20.0605L17.8608 20.4902L16.9017 25.779L15.4384 22.7038L12.3988 24.0999L8.41797 20.0605Z"
-                        fill="#CC6228" />
-                      <path d="M8.15039 19.2314L12.6345 23.7816L12.7899 28.2736L8.15039 19.2314Z" fill="#E27525" />
-                      <path d="M31.8538 19.2236L27.2061 28.2819L27.381 23.7819L31.8538 19.2236Z" fill="#E27525" />
-                      <path
-                        d="M17.6412 19.5088L17.8217 20.6447L18.2676 23.4745L17.9809 32.166L16.6254 25.1841L16.625 25.1119L17.6412 19.5088Z"
-                        fill="#E27525" />
-                      <path
-                        d="M22.3562 19.4932L23.3751 25.1119L23.3747 25.1841L22.0158 32.1835L21.962 30.4328L21.75 23.4231L22.3562 19.4932Z"
-                        fill="#E27525" />
-                      <path
-                        d="M27.7797 23.6011L27.628 27.5039L22.8977 31.1894L21.9414 30.5138L23.0133 24.9926L27.7797 23.6011Z"
-                        fill="#F5841F" />
-                      <path
-                        d="M12.2373 23.6011L16.9873 24.9926L18.0591 30.5137L17.1029 31.1893L12.3723 27.5035L12.2373 23.6011Z"
-                        fill="#F5841F" />
-                      <path
-                        d="M10.4717 32.6338L16.5236 35.5013L16.4979 34.2768L17.0043 33.8323H22.994L23.5187 34.2753L23.48 35.4989L29.4935 32.641L26.5673 35.0591L23.0289 37.4894H16.9558L13.4197 35.0492L10.4717 32.6338Z"
-                        fill="#C0AC9D" />
-                      <path
-                        d="M22.2191 30.231L23.0748 30.8354L23.5763 34.8361L22.8506 34.2234H17.1513L16.4395 34.8485L16.9244 30.8357L17.7804 30.231H22.2191Z"
-                        fill="#161616" />
-                      <path
-                        d="M37.9395 0.351562L39.9998 6.53242L38.7131 12.7819L39.6293 13.4887L38.3895 14.4346L39.3213 15.1542L38.0875 16.2779L38.8449 16.8264L36.8347 19.1742L28.5894 16.7735L28.5179 16.7352L22.5762 11.723L37.9395 0.351562Z"
-                        fill="#763E1A" />
-                      <path
-                        d="M2.06031 0.351562L17.4237 11.723L11.4819 16.7352L11.4105 16.7735L3.16512 19.1742L1.15488 16.8264L1.91176 16.2783L0.678517 15.1542L1.60852 14.4354L0.350209 13.4868L1.30098 12.7795L0 6.53265L2.06031 0.351562Z"
-                        fill="#763E1A" />
-                      <path
-                        d="M28.1861 16.2485L36.9226 18.7921L39.7609 27.5398L32.2728 27.5398L27.1133 27.6049L30.8655 20.2912L28.1861 16.2485Z"
-                        fill="#F5841F" />
-                      <path
-                        d="M11.8139 16.2485L9.13399 20.2912L12.8867 27.6049L7.72971 27.5398H0.254883L3.07728 18.7922L11.8139 16.2485Z"
-                        fill="#F5841F" />
-                      <path
-                        d="M25.5283 5.17383L23.0847 11.7736L22.5661 20.6894L22.3677 23.4839L22.352 30.6225H17.6471L17.6318 23.4973L17.4327 20.6869L16.9139 11.7736L14.4707 5.17383H25.5283Z"
-                        fill="#F5841F" />
-                    </svg>
-                    <div class="flex-1 ms-3">
-                      <span class="block">{{ item.username }}</span>
-                      <span class="block text-xs font-medium text-gray-500 dark:text-gray-400">
-                        {{ item.joinDate | date:'shortDate' }}
-                      </span>
+              <!-- List of Members Modal -->
+              <div id="listMembersModal"
+                class="fixed inset-0 hidden flex items-center justify-center p-4 bg-gray-100 bg-opacity-30">
+                <div class="modal-dialog mt-16 max-w-lg">
+                  <div class="modal-content bg-white p-2 rounded-xl shadow-lg sm:p-5">
+                    <div class="relative">
+                      <!-- Modal header -->
+                      <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                          List of Members
+                        </h3>
+                        <button type="button" (click)="closeModal('listMembersModal')"
+                          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                          </svg>
+                          <span class="sr-only">Close modal</span>
+                        </button>
+                      </div>
+                      <!-- Modal body -->
+                      <div class="p-2 md:p-5">
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Connect with one of our available
+                          wallet
+                          providers or create a new one.</p>
+                        <ul class="my-4 space-y-3 max-h-64 overflow-y-auto">
+                          <li>
+  
+                            @for (item of teamMembers; track $index) {
+                            <a
+                              class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                              <svg aria-hidden="true" class="h-4" viewBox="0 0 40 38" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M39.0728 0L21.9092 12.6999L25.1009 5.21543L39.0728 0Z" fill="#E17726" />
+                                <path d="M0.966797 0.0151367L14.9013 5.21656L17.932 12.7992L0.966797 0.0151367Z"
+                                  fill="#E27625" />
+                                <path
+                                  d="M32.1656 27.0093L39.7516 27.1537L37.1004 36.1603L27.8438 33.6116L32.1656 27.0093Z"
+                                  fill="#E27625" />
+                                <path
+                                  d="M7.83409 27.0093L12.1399 33.6116L2.89876 36.1604L0.263672 27.1537L7.83409 27.0093Z"
+                                  fill="#E27625" />
+                                <path
+                                  d="M17.5203 10.8677L17.8304 20.8807L8.55371 20.4587L11.1924 16.4778L11.2258 16.4394L17.5203 10.8677Z"
+                                  fill="#E27625" />
+                                <path
+                                  d="M22.3831 10.7559L28.7737 16.4397L28.8067 16.4778L31.4455 20.4586L22.1709 20.8806L22.3831 10.7559Z"
+                                  fill="#E27625" />
+                                <path d="M12.4115 27.0381L17.4768 30.9848L11.5928 33.8257L12.4115 27.0381Z"
+                                  fill="#E27625" />
+                                <path d="M27.5893 27.0376L28.391 33.8258L22.5234 30.9847L27.5893 27.0376Z"
+                                  fill="#E27625" />
+                                <path
+                                  d="M22.6523 30.6128L28.6066 33.4959L23.0679 36.1282L23.1255 34.3884L22.6523 30.6128Z"
+                                  fill="#D5BFB2" />
+                                <path d="M17.3458 30.6143L16.8913 34.3601L16.9286 36.1263L11.377 33.4961L17.3458 30.6143Z"
+                                  fill="#D5BFB2" />
+                                <path d="M15.6263 22.1875L17.1822 25.4575L11.8848 23.9057L15.6263 22.1875Z"
+                                  fill="#233447" />
+                                <path d="M24.3739 22.1875L28.133 23.9053L22.8184 25.4567L24.3739 22.1875Z"
+                                  fill="#233447" />
+                                <path d="M12.8169 27.0049L11.9606 34.0423L7.37109 27.1587L12.8169 27.0049Z"
+                                  fill="#CC6228" />
+                                <path d="M27.1836 27.0049L32.6296 27.1587L28.0228 34.0425L27.1836 27.0049Z"
+                                  fill="#CC6228" />
+                                <path
+                                  d="M31.5799 20.0605L27.6165 24.0998L24.5608 22.7034L23.0978 25.779L22.1387 20.4901L31.5799 20.0605Z"
+                                  fill="#CC6228" />
+                                <path
+                                  d="M8.41797 20.0605L17.8608 20.4902L16.9017 25.779L15.4384 22.7038L12.3988 24.0999L8.41797 20.0605Z"
+                                  fill="#CC6228" />
+                                <path d="M8.15039 19.2314L12.6345 23.7816L12.7899 28.2736L8.15039 19.2314Z"
+                                  fill="#E27525" />
+                                <path d="M31.8538 19.2236L27.2061 28.2819L27.381 23.7819L31.8538 19.2236Z"
+                                  fill="#E27525" />
+                                <path
+                                  d="M17.6412 19.5088L17.8217 20.6447L18.2676 23.4745L17.9809 32.166L16.6254 25.1841L16.625 25.1119L17.6412 19.5088Z"
+                                  fill="#E27525" />
+                                <path
+                                  d="M22.3562 19.4932L23.3751 25.1119L23.3747 25.1841L22.0158 32.1835L21.962 30.4328L21.75 23.4231L22.3562 19.4932Z"
+                                  fill="#E27525" />
+                                <path
+                                  d="M27.7797 23.6011L27.628 27.5039L22.8977 31.1894L21.9414 30.5138L23.0133 24.9926L27.7797 23.6011Z"
+                                  fill="#F5841F" />
+                                <path
+                                  d="M12.2373 23.6011L16.9873 24.9926L18.0591 30.5137L17.1029 31.1893L12.3723 27.5035L12.2373 23.6011Z"
+                                  fill="#F5841F" />
+                                <path
+                                  d="M10.4717 32.6338L16.5236 35.5013L16.4979 34.2768L17.0043 33.8323H22.994L23.5187 34.2753L23.48 35.4989L29.4935 32.641L26.5673 35.0591L23.0289 37.4894H16.9558L13.4197 35.0492L10.4717 32.6338Z"
+                                  fill="#C0AC9D" />
+                                <path
+                                  d="M22.2191 30.231L23.0748 30.8354L23.5763 34.8361L22.8506 34.2234H17.1513L16.4395 34.8485L16.9244 30.8357L17.7804 30.231H22.2191Z"
+                                  fill="#161616" />
+                                <path
+                                  d="M37.9395 0.351562L39.9998 6.53242L38.7131 12.7819L39.6293 13.4887L38.3895 14.4346L39.3213 15.1542L38.0875 16.2779L38.8449 16.8264L36.8347 19.1742L28.5894 16.7735L28.5179 16.7352L22.5762 11.723L37.9395 0.351562Z"
+                                  fill="#763E1A" />
+                                <path
+                                  d="M2.06031 0.351562L17.4237 11.723L11.4819 16.7352L11.4105 16.7735L3.16512 19.1742L1.15488 16.8264L1.91176 16.2783L0.678517 15.1542L1.60852 14.4354L0.350209 13.4868L1.30098 12.7795L0 6.53265L2.06031 0.351562Z"
+                                  fill="#763E1A" />
+                                <path
+                                  d="M28.1861 16.2485L36.9226 18.7921L39.7609 27.5398L32.2728 27.5398L27.1133 27.6049L30.8655 20.2912L28.1861 16.2485Z"
+                                  fill="#F5841F" />
+                                <path
+                                  d="M11.8139 16.2485L9.13399 20.2912L12.8867 27.6049L7.72971 27.5398H0.254883L3.07728 18.7922L11.8139 16.2485Z"
+                                  fill="#F5841F" />
+                                <path
+                                  d="M25.5283 5.17383L23.0847 11.7736L22.5661 20.6894L22.3677 23.4839L22.352 30.6225H17.6471L17.6318 23.4973L17.4327 20.6869L16.9139 11.7736L14.4707 5.17383H25.5283Z"
+                                  fill="#F5841F" />
+                              </svg>
+                              <div class="flex-1 ms-3">
+                                <span class="block">{{ item.username }}</span>
+                                <span class="block text-xs font-medium text-gray-500 dark:text-gray-400">
+                                  {{ item.joinDate | date:'shortDate' }}
+                                </span>
+                              </div>
+                              <span class="flex items-center ms-3">
+                                <span [ngClass]="item.isActive ? 'bg-green-500' : 'bg-red-500'"
+                                  class="inline-block w-3 h-3 rounded-full me-2"></span>
+                                <span
+                                  class="text-xs font-medium text-gray-500 bg-gray-200 rounded px-2 py-0.5 dark:bg-gray-700 dark:text-gray-400">
+                                  {{ item.isActive ? 'Deactivate' : 'Activate' }}
+                                </span>
+                              </span>
+                              <span
+                                class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">Popular</span>
+  
+                            </a>
+                            }@empty {No teamMembers found !}
+  
+                          </li>
+                        </ul>
+                      </div>
+  
+                      <div class="flex justify-center mt-1">
+                        <button type="button" (click)="closeModal('listMembersModal')"
+                          class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                          data-bs-dismiss="modal">
+                          Close
+                        </button>
+                      </div>
                     </div>
-                    <span class="flex items-center ms-3">
-                      <span [ngClass]="item.isActive ? 'bg-green-500' : 'bg-red-500'"
-                        class="inline-block w-3 h-3 rounded-full me-2"></span>
-                      <span
-                        class="text-xs font-medium text-gray-500 bg-gray-200 rounded px-2 py-0.5 dark:bg-gray-700 dark:text-gray-400">
-                        {{ item.isActive ? 'Deactivate' : 'Activate' }}
-                      </span>
-                    </span>
-                    <span
-                      class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">Popular</span>
-                    
-                  </a>
-                  }@empty {No teamMembers found !}
-
-                </li>
-              </ul>
-            </div>
-
-            <div class="flex justify-center mt-1">
-              <button type="button" (click)="closeModal('listMembersModal')"
-                class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                data-bs-dismiss="modal">
-                Close
-              </button>
+                  </div>
+                </div>
+              </div>
+              <!-- modal end -->
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-
-                <!-- modal end -->
-
-
-
-              </div>
-              
-          </div>
-                   
-          </div>
-        </div>
-
       }@empty {No team found}
-      
     </div>
   </div>
 
 
-
-  
 </div>

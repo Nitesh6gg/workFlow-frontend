@@ -373,12 +373,10 @@
                                             <!-- condition on img -->
                                             <ng-container
                                                 *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
-                                                <img class="object-cover w-10 h-10 rounded-full"
-                                                    src="assets/default.webp" alt="not found">
+                                                <img class="w-10 h-10 rounded-full"src="assets/default.webp" alt="not found">
                                             </ng-container>
                                             <ng-template #showProfilePicture>
-                                                <img class="object-cover w-10 h-10 rounded-full"
-                                                    [src]="item.imageUrl" alt="img">
+                                                <img class="w-10 h-10 rounded-full"[src]="item.imageUrl" alt="img">
                                             </ng-template>
 
                                             <div>
