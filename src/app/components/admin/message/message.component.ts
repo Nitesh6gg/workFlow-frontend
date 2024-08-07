@@ -53,7 +53,7 @@ export class MessageComponent {
   
 
   showAllUserData() {
-    this.api.getAllUser(this.currentPage, this.pageSize, this.sortBy, this.sortOrder)
+    this.api.getAllUser(this.currentPage, this.pageSize, this.sortBy)
       .subscribe({
         next: (data: any) => {
           this.currentPage = data.currentPage;

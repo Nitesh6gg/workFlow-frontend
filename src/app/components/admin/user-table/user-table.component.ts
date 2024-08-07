@@ -26,7 +26,7 @@ export class UserTableComponent implements OnInit {
 
   //fetch user data with pagination
   users: User[] = []; // Initialize users array here
-  currentPage: any;
+  currentPage: number=0;
   totalPages: any;
   totalItems:any;
   pageSize: number = 10; //default page size
@@ -35,8 +35,9 @@ export class UserTableComponent implements OnInit {
   allUsersData: any[] = [];
 
  //filter
-  sortBy: string = 'userId'; // Default sorting by userId
-  sortOrder: string = 'asc';
+ 
+  sort: string = 'createdOn,Desc'; // Default sorting by userId
+  
 
   //search
   searchQuery: string = ''; // Property to store the search query
@@ -132,19 +133,12 @@ export class UserTableComponent implements OnInit {
   }
 
   showAllUserData() {
-    this.api.getAllUser(this.currentPage, this.pageSize, this.sortBy, this.sortOrder)
-      .subscribe({
+    this.api.getAllUser(this.currentPage, this.pageSize, this.sort).subscribe({
         next: (data: any) => {
           this.allUsersData=data.content;
           this.currentPage = data.currentPage;
           this.totalPages = data.totalPages;
           this.totalItems = data.numberOfElements;
-          this.users = data.users || [];
-  
-          // Loop through each user and load their profile picture
-          this.users.forEach((user: any) => {
-            this.loadUserProfilePicture(user.userId); // Pass user.id instead of userId
-          });
         },
         error: (error: any) => {
           console.error('Error fetching user data:', error);
@@ -152,29 +146,7 @@ export class UserTableComponent implements OnInit {
       });
   }
 
-  loadUserProfilePicture(userId: number) {
-    this.api.getImageUrl(userId).subscribe(
-      (response: Blob) => {
-        this.api.convertBlobToImage(response).subscribe(
-          (imageUrl: string) => {
-            for(let a=0;a<this.users.length;a++){
-              if(this.users[a].userId==userId){
-                this.users[a].profilePicture=imageUrl
-              }
-            }
-            console.log(this.users);
-            
-          },
-          (error: any) => {
-            console.error('Error converting Blob to image:', error);
-          }
-        );
-      },
-      (error: any) => {
-        console.error('Error fetching user profile picture:', error);
-      }
-    );
-  }
+
   
   //pagination start
   nextPage(): void {
@@ -205,6 +177,12 @@ export class UserTableComponent implements OnInit {
   }
 
   //filter
+
+  onSortByName(){
+    this.currentPage=0;
+    this.sort='firstName';
+    this.showAllUserData();
+  }
 
   //sort by fields
   onSortByChange() {

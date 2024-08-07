@@ -61,7 +61,7 @@
 
                                 <li class="flex items-center">
                                     <input id="apple" type="radio" checked name="selectedOption" value="userId"
-                                        [(ngModel)]="sortBy"
+                                        [(ngModel)]="sort"
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="apple"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -70,7 +70,7 @@
                                 </li>
                                 <li class="flex items-center">
                                     <input id="dell" type="radio" name="selectedOption" value="name"
-                                        [(ngModel)]="sortBy"
+                                        [(ngModel)]="sort"
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                         NAME
@@ -78,7 +78,7 @@
                                 </li>
                                 <li class="flex items-center">
                                     <input id="asus" type="radio" name="selectedOption" value="email"
-                                        [(ngModel)]="sortBy"
+                                        [(ngModel)]="sort"
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                         EMAIL
@@ -293,7 +293,7 @@
 
                                 <th scope="col"
                                     class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <button class="flex items-center gap-x-2">
+                                    <button class="flex items-center gap-x-2" (click)="onSortByName()">
                                         <span>Name</span>
 
                                         <svg class="h-3" viewBox="0 0 10 11" fill="none"
@@ -308,6 +308,7 @@
                                                 d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
                                                 fill="currentColor" stroke="currentColor" stroke-width="0.3" />
                                         </svg>
+
                                     </button>
                                 </th>
 
@@ -391,25 +392,13 @@
                                     </div>
                                 </td>
 
-                                <!--prfile show  Modal -->
-                                <!-- <div class="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-50" *ngIf="isModalOpen">
-                                    <div class="relative w-60 h-60 rounded-full bg-white overflow-hidden transform scale-100 transition-transform duration-300 ease-in-out" [ngClass]="{'scale-0': !isModalOpen}">
+                                <!--profile show  Modal -->
+                                  <div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm" *ngIf="isModalOpen" (click)="closeModal()">
+                                    <div class="relative w-72 h-72 rounded-full bg-white overflow-hidden ">
                                       <img [src]="modalImageUrl" class="w-full h-full object-cover" alt="Full Image">
-                                      <button class="absolute top-2 right-2 text-black text-2xl bg-black bg-opacity-60 rounded-full p-2 hover:bg-opacity-80" (click)="closeModal()">×</button>
-                                      <button class="absolute top-2 right-2 text-white text-2xl" (click)="closeModal()">×</button>
-                                    </div>
-                                  </div> -->
-
-                                  <div class="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-50" *ngIf="isModalOpen">
-                                    <div class="relative w-60 h-60 rounded-full bg-white overflow-hidden transform scale-100 transition-transform duration-300 ease-in-out" [ngClass]="{'scale-0': !isModalOpen}">
-                                      <img [src]="modalImageUrl"  class="w-full h-full object-cover" alt="Full Image">
-                                      
-                                    </div>
-                                    <div class="relative">
-                                        <button class="absolute top-2 right-2 text-black text-2xl" (click)="closeModal()">× close</button>
-
                                     </div>
                                   </div>
+                                  <!--profile Modal end -->
 
                                 <td class="px-4  py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
                                     {{item.departmentName}}</td>

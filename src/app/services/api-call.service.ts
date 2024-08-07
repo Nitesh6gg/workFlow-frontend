@@ -52,8 +52,8 @@ export class ApiCallService {
     return this.httpClient.put<any>(`${environment.apiurl}/api/admin/updateUser/${userId}`, userData);
   }
 
-  getAllUser(page: number, size: number, sortBy: string, sortOrder: string): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/user/list?page=${page}&size=${size}&sortBy=${sortBy}&sort=${sortOrder}`);
+  getAllUser(page: number, size: number, sort: string): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/user/list?page=${page}&size=${size}&sort=${sort}`);
   }
 
   searchName(name: string): Observable<any> {
