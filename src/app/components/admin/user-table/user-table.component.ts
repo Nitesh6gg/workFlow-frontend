@@ -240,6 +240,7 @@ export class UserTableComponent implements OnInit {
         setTimeout(() => {
           this.hideToast();
         }, 3000);
+        this.showAllUserData();
         console.log('Project Created successfully');
         this.reset();
         this.showAllUserData();
