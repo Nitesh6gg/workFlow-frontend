@@ -150,6 +150,11 @@
 
                 <th scope="col"
                   class="px-10 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  Status
+                </th>
+
+                <th scope="col"
+                  class="px-10 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                   ProgressBar
                 </th>
 
@@ -249,35 +254,19 @@
                     </p>
                   </div>
                 </td>
+
                 <td class="px-4 py-4 text-sm whitespace-nowrap">
-                  <div [ngClass]="{
-                      'bg-blue-200': item.status === 'Upcoming',
-                      'bg-red-100': item.status === 'InProgress',
-                      'bg-yellow-100': item.status === 'Quaterly',
-                      'bg-green-200': item.status === 'Complete'
-                    }" class="w-40 h-1.5 overflow-hidden rounded-full">
-                    <div [ngStyle]="{
-                        width:
-                          item.status === 'Upcoming'
-                            ? '2%'
-                            : item.status === 'InProgress'
-                            ? '25%'
-                            : item.status === 'Quaterly'
-                            ? '75%'
-                            : item.status === 'Complete'
-                            ? '100%'
-                            : '100%',
-                        'background-color':
-                          item.status === 'Upcoming'
-                            ? '#0080ff'
-                            : item.status === 'InProgress'
-                            ? '#ff0000'
-                            : item.status === 'Quaterly'
-                            ? '	#ffff00'
-                            : item.status === 'Complete'
-                            ? '#00ff00'
-                            : '#00ff00'
-                      }" class="h-1.5"></div>
+                  <div>
+                    <h4 class="text-gray-700 dark:text-gray-200">
+                      {{ item.status }}
+                    </h4>
+                  </div>
+                </td>
+
+
+                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                  <div class="w-48 h-1.5 bg-{{item.barColor}}-200 overflow-hidden rounded-full">
+                    <div class="bg-{{item.barColor}}-500 h-1.5" [ngStyle]="{width:item.progressBar}"></div>
                   </div>
                 </td>
                 <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -464,8 +453,8 @@
                 <select id="category" [(ngModel)]="status"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                   <option selected="" disabled selected>Select Status</option>
-                  <option selected="">Upcoming</option>
-                  <option selected="">InProgress</option>
+                  <option selected="" value="Initiation">Initiation</option>
+                  <option selected="" value="Upcoming">Upcoming</option>
                 </select>
               </div>
 

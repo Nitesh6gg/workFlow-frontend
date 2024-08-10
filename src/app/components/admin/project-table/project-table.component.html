@@ -217,11 +217,7 @@
                         <thead class="bg-gray-50 dark:bg-gray-800">
                             <tr>
 
-                                <th scope="col"
-                                    class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    #PId
-                                </th>
-
+                                
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <button class="flex items-center gap-x-3 focus:outline-none">
@@ -261,8 +257,9 @@
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     Team</th>
 
-
-
+                                    <th scope="col"
+                                    class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Status</th>    
 
                                 <th scope="col"
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -278,12 +275,7 @@
                             @for (item of allProjectData; track $index) {
 
                             <tr>
-                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <div>
-                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item.projectId}}</h2>
-
-                                    </div>
-                                </td>
+                                
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <div style="display: flex; gap: 5px; align-items: center;">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -350,9 +342,15 @@
                                     </div>
                                 </td>
 
+                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                    <div>
+                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">{{item.status}}</p>
+                                    </div>
+                                </td>
+
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                    <div class="w-48 h-1.5 bg-blue-200 overflow-hidden rounded-full">
-                                      <div class="bg-blue-500 h-1.5" [ngStyle]="{width:item.progressBar}"></div>
+                                    <div class="w-48 h-1.5 bg-{{item.barColor}}-200 overflow-hidden rounded-full">
+                                      <div class="bg-{{item.barColor}}-500 h-1.5" [ngStyle]="{width:item.progressBar}"></div>
                                     </div>
                                   </td>
 
