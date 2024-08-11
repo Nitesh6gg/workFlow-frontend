@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 
 import { response } from 'express';
+import { PaginationService } from '../../../services/pagination/pagination.service';
 
 
 
@@ -19,6 +20,8 @@ import { response } from 'express';
 export class TaskComponent {
 
   showToast: boolean = false;
+
+  sort:string='t.taskId,Desc'
  
 
   totalTask: number = 0; 
@@ -34,7 +37,7 @@ export class TaskComponent {
   startDate: any;
   dueDate: any;
   
-  constructor(private api: ApiCallService,) {}
+  constructor(private api: ApiCallService,public pagination: PaginationService) {}
 
   ngOnInit(): void {
     this.showAllTaskData();
@@ -54,19 +57,19 @@ export class TaskComponent {
     this.showToast = false;
   }
 
-  public showAllTaskData() {
-    this.api.getAllTask().subscribe({
+ 
+  showAllTaskData = (): void => {
+    const params = this.pagination.getPaginationParams();
+    this.api.getAllTask(params.page, params.size, this.sort).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.allTaskData = data.content;
-        //count total
-        this.totalTask = this.allTaskData.length;
+        this.pagination.updatePagination(data);
       },
       error: (error: any) => {
-        console.log(error);
+        
       }
     });
-  }
+  };
 
    public showAllUpcomingTaskData() {
     this.api.getAllUpcomingTask().subscribe({

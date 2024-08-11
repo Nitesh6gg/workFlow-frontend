@@ -5,6 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CommonModule } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PaginationService } from '../../../services/pagination/pagination.service';
 
 
 @Component({
@@ -16,6 +17,8 @@ import { Observable } from 'rxjs';
 })
 export class UserTableComponent implements OnInit {
 
+
+
   userType:any;
 
   // Add a property to track upload progress bar
@@ -24,19 +27,13 @@ export class UserTableComponent implements OnInit {
 
   showToast: boolean = false;
 
-  //fetch user data with pagination
-  users: User[] = []; // Initialize users array here
-  currentPage: number=0;
-  totalPages: any;
-  totalItems:any;
-  pageSize: number = 10; //default page size
+  
 
 
   allUsersData: any[] = [];
 
  //filter
  
-  sort: string = 'createdOn,Desc'; // Default sorting by userId
   
 
   //search
@@ -72,13 +69,11 @@ export class UserTableComponent implements OnInit {
   isModalOpen = false;
   modalImageUrl: string | null = null;
 
-  constructor(private api: ApiCallService) {}
+  constructor(private api: ApiCallService,public pagination: PaginationService) {}
 
   ngOnInit() { 
     this.userType=localStorage.getItem("userType");
-    this.currentPage = 0;
     this.showAllUserData();
-    
   }
 
   openModal(imageUrl: string): void {
@@ -132,80 +127,30 @@ export class UserTableComponent implements OnInit {
     this.showToast = false;
   }
 
-  showAllUserData() {
-    this.api.getAllUser(this.currentPage, this.pageSize, this.sort).subscribe({
-        next: (data: any) => {
-          this.allUsersData=data.content;
-          this.currentPage = data.currentPage;
-          this.totalPages = data.totalPages;
-          this.totalItems = data.numberOfElements;
-        },
-        error: (error: any) => {
-          console.error('Error fetching user data:', error);
-        }
-      });
-  }
+  showAllUserData = (): void => {
+    const params = this.pagination.getPaginationParams();
+    this.api.getAllUser(params.page, params.size, params.sort,).subscribe({
+      next: (data: any) => {
+        this.allUsersData = data.content;
+        this.pagination.updatePagination(data);
+      },
+      error: (error: any) => {
+        
+      }
+    });
+  };
 
 
-  
-  //pagination start
-  nextPage(): void {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.showAllUserData();
-    }
-  }
-
-  prevPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.showAllUserData();
-    }
-  }
-
-  getPageRange(): number[] {
-    const pages = [];
-    for (let i = 1; i < this.totalPages+1; i++) {
-      pages.push(i-1 );
-    }
-    return pages;
-  }
-
-  goToPage(page: number): void {
-    this.currentPage = page; // Subtract 1 to convert to 0-based index
-    this.showAllUserData();
-  }
-
-  //filter
-
-  onSortByName(){
-    this.currentPage=0;
-    this.sort='firstName';
-    this.showAllUserData();
-  }
-
-  //sort by fields
-  onSortByChange() {
-    this.currentPage = 0; // Reset currentPage to 0 when sorting option changes
-    this.showAllUserData();
- }
-
-  //change page size
-  onPageSizeChange() {
-    this.currentPage = 0; // Reset currentPage to 0 when page size changes
-    this.showAllUserData();
-  }
 
   //search
   search(): void {
     // Reset currentPage to 0 when performing a new search
-    this.currentPage = 0;
+   
     // Perform search only if searchQuery is not empty
     if (this.searchQuery.trim() !== '') {
       this.api.searchName(this.searchQuery).subscribe({
         next: (data: any) => {
-          this.users = data; // Update users with the filtered data
-          this.currentPage = 0; // Reset currentPage when search results are displayed
+          // Reset currentPage when search results are displayed
           // You may need to update other pagination-related properties here as well
         },
         error: (error: any) => {

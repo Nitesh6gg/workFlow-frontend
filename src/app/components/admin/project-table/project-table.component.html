@@ -5,7 +5,7 @@
                 <h2 class="text-lg font-medium text-gray-800 dark:text-white">Projects</h2>
 
                 <span
-                    class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{totalProject}}</span>
+                    class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{pagination.totalElements}}</span>
             </div>
 
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">These Projects in the last 12 months.</p>
@@ -376,42 +376,74 @@
                             No data found!
                             }
 
+                            
+
                         </tbody>
+
+                        <tfoot class="bg-gray-100 dark:bg-gray-800">
+                            <tr>
+                              <!-- Adjust colspan based on the number of columns in your table -->
+                              <td colspan="10" class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 text-center">
+                                <!-- Footer content goes here -->
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
+                                        class="font-semibold text-gray-900 dark:text-white">{{pagination.startIndex}}-{{pagination.endIndex}}</span> of <span
+                                        class="font-semibold text-gray-900 dark:text-white">{{pagination.totalElements}}</span> entries</span>
+                                  
+                                  <div class="flex gap-2">
+                                    <div class="flex items-center space-x-2 filament-tables-pagination-records-per-page-selector rtl:space-x-reverse">
+                                      <label>
+                                        <span class="text-sm font-medium px-2 dark:text-white">show entries</span>
+                                        <select (change)="pagination.changePageSize($event,showAllProjectData)"
+                                          class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:border-yellow-500">
+                                          <option value="5">5</option>
+                                          <option value="10">10</option>
+                                          <option value="25">25</option>
+                                          <option value="50">50</option>
+                                          <option value="-1">All</option>
+                                        </select>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-        <div class="text-sm text-gray-500 dark:text-gray-400">
-            Page <span class="font-medium text-gray-700 dark:text-gray-100">{{currentPage}} of {{totalPages}}</span>
-        </div>
+    <div class="flex items-center justify-between mt-6">
+        <button (click)="pagination.prevPage(showAllProjectData)" [disabled]="pagination.currentPage === 0"
+            class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
+            <span> previous </span>
+        </button>
 
-        <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-            <a href="#"
-                class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                </svg>
-
-                <span>
-                    previous
-                </span>
-            </a>
-
-            <a href="#"
-                class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <span>
-                    Next
-                </span>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-            </a>
-        </div>
+        <div class="items-center hidden lg:flex gap-x-3">
+            <!-- Use Angular's *ngFor for looping -->
+            <button *ngFor="let page of pagination.getPageRange(); let i = index" class="px-1.5 py-0 text-sm rounded-full flex items-center justify-center"
+                    [ngClass]="{
+                      'bg-blue-500 text-white': pagination.currentPage === page,
+                      'bg-gray-200 text-gray-700': pagination.currentPage !== page
+                    }"
+                    (click)="pagination.goToPage(page,showAllProjectData)">
+              {{ page}} <!-- Displaying page numbers starting from 1 -->
+            </button>
+          </div>
+          
+        <button (click)="pagination.nextPage(showAllProjectData)" [disabled]="pagination.currentPage === pagination.totalPages - 1"
+            class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <span>Next</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+        </button>
     </div>
 </section>

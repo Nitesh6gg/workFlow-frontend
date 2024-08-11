@@ -89,8 +89,8 @@ export class ApiCallService {
     return this.httpClient.get(`${environment.apiurl}/api/user/managerDropdown?departmentId=${departmentId}`);
   }
 
-  getAllProject(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/project/list?page=0&size=5&sortBy=projectId&sortOrder=Desc`);
+  getAllProject(page: number, size: number, sort: string): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/project/list?page=${page}&size=${size}&sort=${sort}`);
   }
 
   getAllProjectByStatus(projectStatus:String): Observable<any> {
@@ -121,8 +121,9 @@ export class ApiCallService {
 
 
 
-  getAllTask(): Observable<any> {
-    return this.httpClient.get(`${environment.apiurl}/api/task/list`);
+
+  getAllTask(page: number, size: number, sort: string): Observable<any> {
+    return this.httpClient.get(`${environment.apiurl}/api/task/list?page=${page}&size=${size}&sort=${sort}`);
   }
   createTask(data:any):Observable<any>{
     return this.httpClient.post(`${environment.apiurl}/api/task/save`,data );

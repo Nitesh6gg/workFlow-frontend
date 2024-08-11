@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { log } from 'console';
+import { PaginationService } from '../../../services/pagination/pagination.service';
 
 @Component({
   selector: 'app-project-table',
@@ -18,11 +19,7 @@ export class ProjectTableComponent {
   showToast: boolean = false;
   modelResponseMessage:boolean = false;
 
-  //page
-  currentPage:any;
-  totalPages:any;
-  totalProject: number = 0; 
-    
+
   allProjectData: any[] = []; // Ensure this is an array to store the projects
 
 
@@ -39,7 +36,7 @@ export class ProjectTableComponent {
     projectDescription: string | undefined;
   
 
-  constructor(private api: ApiCallService) {}
+  constructor(private api: ApiCallService,public pagination:PaginationService) {}
 
   ngOnInit(): void {
     
@@ -48,27 +45,25 @@ export class ProjectTableComponent {
 
   }
 
-  showAllProjectData() {
-    this.api.getAllProject().subscribe({
+  
+  showAllProjectData = (): void => {
+    const params = this.pagination.getPaginationParams();
+    this.api.getAllProject(params.page, params.size, params.sort,).subscribe({
       next: (data: any) => {
         this.allProjectData = data.content; 
-        this.totalProject = data.totalItems;
-        this.currentPage=data.currentPage;
-        this.totalPages=data.totalPages;
+        this.pagination.updatePagination(data);
       },
       error: (error: any) => {
-        console.error(error);
+        
       }
     });
-  }
+  };
 
   showAllProjectByStatus(projectStatus:String){
     this.api.getAllProjectByStatus(projectStatus).subscribe({
       next: (data: any) => {
         this.allProjectData = data.content; 
-        this.totalProject = data.totalItems;
-        this.currentPage=data.currentPage;
-        this.totalPages=data.totalPages;
+        
       },
       error: (error: any) => {
         console.error(error);
