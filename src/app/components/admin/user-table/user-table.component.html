@@ -60,7 +60,6 @@
 
                                 <li class="flex items-center">
                                     <input id="apple" type="radio" checked name="selectedOption" value="userId"
-                                       
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="apple"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -69,7 +68,6 @@
                                 </li>
                                 <li class="flex items-center">
                                     <input id="dell" type="radio" name="selectedOption" value="name"
-                                        
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                         NAME
@@ -77,7 +75,6 @@
                                 </li>
                                 <li class="flex items-center">
                                     <input id="asus" type="radio" name="selectedOption" value="email"
-                                       
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                         EMAIL
@@ -101,7 +98,7 @@
                                   transition duration-150 ease-in-out origin-top-left min-w-40 ">
                             <li class="px-3 py-1 hover:bg-gray-100">current Size : </li>
                             <li class="px-3 py-1 hover:bg-gray-100">Size :
-                                <select id="setPageSize" 
+                                <select id="setPageSize"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-22 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option value="4">4</option>
                                     <option value="10">10</option>
@@ -292,7 +289,8 @@
 
                                 <th scope="col"
                                     class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <button class="flex items-center gap-x-2" (click)="pagination.sortByField('firstName', showAllUserData)">
+                                    <button class="flex items-center gap-x-2"
+                                        (click)="pagination.sortByField('firstName', showAllUserData)">
                                         <span>Name</span>
 
                                         <svg class="h-3" viewBox="0 0 10 11" fill="none"
@@ -371,14 +369,49 @@
                                         <div class="flex items-center gap-x-2">
 
                                             <!-- Image with click event to open modal -->
-                                            <ng-container *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
+                                            <ng-container
+                                                *ngIf="!item.imageUrl || item.imageUrl.length === 0; else showProfilePicture">
                                                 <img class="w-10 h-10 rounded-full cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
-                                                    src="assets/default.webp" alt="not found" (click)="openModal('assets/default.webp')">
+                                                    src="assets/default.webp" alt="not found"
+                                                    (click)="openModal('assets/default.webp')">
                                             </ng-container>
                                             <ng-template #showProfilePicture>
                                                 <img class="w-10 h-10 rounded-full cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
                                                     [src]="item.imageUrl" alt="img" (click)="openModal(item.imageUrl)">
                                             </ng-template>
+
+                                            @if (isModalOpen) {
+                                            <!-- Action Buttons -->
+                                            <div class="flex justify-around">
+                                                <!-- Share Profile Button -->
+                                                <button
+                                                    class="bg-blue-500 text-white rounded-full p-2 flex items-center justify-center focus:outline-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M14 7V3m-4 4V3m5 10.5a5.002 5.002 0 00-10 0M4 15l3 3m0 0l3-3m-3 3V9" />
+                                                    </svg>
+                                                </button>
+
+                                                <!-- Copy Link Button -->
+                                                <button
+                                                    class="bg-gray-500 text-white rounded-full p-2 flex items-center justify-center focus:outline-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M13.828 10H12v4h1.828a2 2 0 011.414 3.414l-3.414 3.414a2 2 0 01-2.828 0l-3.414-3.414a2 2 0 010-2.828L7.586 14H9v-4H7.586a2 2 0 01-1.414-3.414l3.414-3.414a2 2 0 012.828 0l3.414 3.414a2 2 0 010 2.828L15.414 10z" />
+                                                    </svg>
+                                                </button>
+
+                                                <!-- Another Button (Optional) -->
+                                                <button
+                                                    class="bg-green-500 text-white rounded-full p-2 flex items-center justify-center focus:outline-none">
+                                                    <!-- Insert icon and functionality -->
+                                                </button>
+                                            </div>
+                                            }
 
                                             <div>
                                                 <h2 class="font-medium text-gray-800 dark:text-white ">
@@ -392,12 +425,13 @@
                                 </td>
 
                                 <!--profile show  Modal -->
-                                  <div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm" *ngIf="isModalOpen" (click)="closeModal()">
+                                <div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+                                    *ngIf="isModalOpen" (click)="closeModal()">
                                     <div class="relative w-72 h-72 rounded-full bg-white overflow-hidden ">
-                                      <img [src]="modalImageUrl" class="w-full h-full object-cover" alt="Full Image">
+                                        <img [src]="modalImageUrl" class="w-full h-full object-cover" alt="Full Image">
                                     </div>
-                                  </div>
-                                  <!--profile Modal end -->
+                                </div>
+                                <!--profile Modal end -->
 
                                 <td class="px-4  py-4 text-sm text-black dark:text-gray-300 whitespace-nowrap">
                                     {{item.departmentName}}</td>
@@ -555,38 +589,43 @@
 
                         <tfoot class="bg-gray-100 dark:bg-gray-800">
                             <tr>
-                              <!-- Adjust colspan based on the number of columns in your table -->
-                              <td colspan="10" class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 text-center">
-                                <!-- Footer content goes here -->
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                                        class="font-semibold text-gray-900 dark:text-white">{{pagination.startIndex}}-{{pagination.endIndex}}</span> of <span
-                                        class="font-semibold text-gray-900 dark:text-white">{{pagination.totalElements}}</span> entries</span>
-                                  
-                                  <div class="flex gap-2">
-                                    <div class="flex items-center space-x-2 filament-tables-pagination-records-per-page-selector rtl:space-x-reverse">
-                                      <label>
+                                <!-- Adjust colspan based on the number of columns in your table -->
+                                <td colspan="10"
+                                    class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 text-center">
+                                    <!-- Footer content goes here -->
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
+                                                class="font-semibold text-gray-900 dark:text-white">{{pagination.startIndex}}-{{pagination.endIndex}}</span>
+                                            of <span
+                                                class="font-semibold text-gray-900 dark:text-white">{{pagination.totalElements}}</span>
+                                            entries</span>
 
-                                        <span class="text-sm font-medium px-2 dark:text-white">show entries</span>
-                                       
-                                        <select (change)="pagination.changePageSize($event,showAllUserData)"
-                                          class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:border-yellow-500">
-                                          <option value="5">5</option>
-                                          <option value="10">10</option>
-                                          <option value="25">25</option>
-                                          <option value="50">50</option>
-                                          <option value="-1">All</option>
-                                        </select>
-                              
-                                       
-                                      </label>
+                                        <div class="flex gap-2">
+                                            <div
+                                                class="flex items-center space-x-2 filament-tables-pagination-records-per-page-selector rtl:space-x-reverse">
+                                                <label>
+
+                                                    <span class="text-sm font-medium px-2 dark:text-white">show
+                                                        entries</span>
+
+                                                    <select (change)="pagination.changePageSize($event,showAllUserData)"
+                                                        class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-300 rounded-lg shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-inset focus:ring-yellow-500 dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:border-yellow-500">
+                                                        <option value="5">5</option>
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="-1">All</option>
+                                                    </select>
+
+
+                                                </label>
+                                            </div>
+
+                                        </div>
                                     </div>
-              
-                                  </div>
-                                </div>
-                              </td>
+                                </td>
                             </tr>
-                          </tfoot>
+                        </tfoot>
 
                     </table>
                 </div>
@@ -606,17 +645,17 @@
 
         <div class="items-center hidden lg:flex gap-x-3">
             <!-- Use Angular's *ngFor for looping -->
-            <button *ngFor="let page of pagination.getPageRange(); let i = index" class="px-1.5 py-0 text-sm rounded-full flex items-center justify-center"
-                    [ngClass]="{
+            <button *ngFor="let page of pagination.getPageRange(); let i = index"
+                class="px-1.5 py-0 text-sm rounded-full flex items-center justify-center" [ngClass]="{
                       'bg-blue-500 text-white': pagination.currentPage === page,
                       'bg-gray-200 text-gray-700': pagination.currentPage !== page
-                    }"
-                    (click)="pagination.goToPage(page,showAllUserData)">
-              {{ page}} <!-- Displaying page numbers starting from 1 -->
+                    }" (click)="pagination.goToPage(page,showAllUserData)">
+                {{ page}} <!-- Displaying page numbers starting from 1 -->
             </button>
-          </div>
-          
-        <button (click)="pagination.nextPage(showAllUserData)" [disabled]="pagination.currentPage === pagination.totalPages - 1"
+        </div>
+
+        <button (click)="pagination.nextPage(showAllUserData)"
+            [disabled]="pagination.currentPage === pagination.totalPages - 1"
             class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
             <span>Next</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
